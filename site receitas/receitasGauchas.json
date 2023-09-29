@@ -1,0 +1,53 @@
+{
+  "receitas_gauchas": [
+    {
+      "nome": "Churrasco",
+      "ingredientes": [
+        "Carne (picanha, costela, linguiça)",
+        "Sal grosso",
+        "Fogo de chão ou churrasqueira",
+        "Acompanhamentos (farofa, vinagrete, pão com alho)"
+      ],
+      "instrucoes": "Tempere a carne com sal grosso, acenda o fogo de chão ou a churrasqueira e asse a carne até o ponto desejado. Sirva com os acompanhamentos.",
+      "imagem": "Churrasco.jpg"
+    },
+    {
+      "nome": "Feijoada Gaúcha",
+      "ingredientes": [
+        "Feijão preto",
+        "Carne de porco (linguiça, costela, orelha, pé)",
+        "Arroz",
+        "Couve manteiga",
+        "Farinha de mandioca",
+        "Laranja"
+      ],
+      "instrucoes": "Cozinhe o feijão preto com as carnes de porco até ficarem macias. Sirva com arroz, couve manteiga refogada, farinha de mandioca e laranja em rodelas."
+    },
+    {
+      "nome": "Arroz de Carreteiro",
+      "ingredientes": [
+        "Carne de charque",
+        "Arroz",
+        "Cebola",
+        "Alho",
+        "Pimentão",
+        "Tomate",
+        "Temperos a gosto"
+      ],
+      "instrucoes": "Corte a carne de charque em pedaços pequenos e refogue com cebola, alho, pimentão e tomate. Acrescente o arroz e cozinhe até que esteja pronto. Tempere a gosto e sirva."
+    },
+    {
+      "nome": "Cuca",
+      "ingredientes": [
+        "Farinha de trigo",
+        "Açúcar",
+        "Ovos",
+        "Banha ou manteiga",
+        "Fermento biológico",
+        "Frutas (geralmente, banana ou maçã)",
+        "Canela"
+      ],
+      "instrucoes": "Prepare uma massa com farinha de trigo, açúcar, ovos, banha ou manteiga e fermento biológico. Estenda a massa em uma forma, coloque as frutas por cima e polvilhe com açúcar e canela. Asse até dourar."
+    }
+  ]
+}
