@@ -3,25 +3,57 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Estrutura Modelo</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js" defer></script>
   </head>
+
   <body>
-    <header></header>
+    <header>
+      <div>
+        <ul class="dropdown">
+          <a href="#" class="menu">Receitas</a>
+          <div class="dropdown-content">
+            <a href="#">Churrasco</a>
+            <a href="#">Feijoada Gaúcha</a>
+            <a href="#">Arroz de Carreteiro</a>
+            <a href="#">Cuca</a>
+          </div>
+        </ul>
+      </div>
+      <h1 class="tituloProjeto">Estrutura Modelo</h1>
+      <div class="search-bar">
+        <!-- rever trazer um botao mais simples -->
+        <link
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"
+          rel="stylesheet"
+        />
+        <input type="text" class="search-input" placeholder="Pesquisar..." />
+        <button class="fa fa-search" type="submit"></button>
+      </div>
+    </header>
 
-    <nav>
-      <ul>
-        <li><a href="”#”">Link 1</a></li>
-        <li><a href="”#”">Link 2</a></li>
-        <li><a href="”#”">Link 3</a></li>
-      </ul>
-    </nav>
+    <section>
+      <div class="container">
+        <div class="card">
+          <h1>Churrasco</h1>
+          <span id="imagem"></span>
+        </div>
+       
+        <ul>
+          <li>Ingredientes</li>
+          <hr>
+          <li>Modo de Preparo</li>
+          <li>Instruções</li>
+          <li>Instruções</li>
+          <li>Instruções</li>
+          
+        </ul>
+      </div>
+    </section>
 
-    <div>Div 1</div>
-
-    <div>Div 2</div>
-
-    <div style="clear: both"></div>
-
-    <section></section>
+    <footer>
+      <p>&copy;Fernando de Souza</p>
+    </footer>
   </body>
 </html>
