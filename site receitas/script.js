@@ -22,9 +22,9 @@ const receitasGauchas = {
   imagem: "Churrasco.jpg"
 }
 //document.getElementsById("titulo").textContent = receitasGauchas.nome;
-document.getElementById("ingredientes").textContent = receitasGauchas.ingredientes;
-document.getElementById("instrucoes").textContent = receitasGauchas.instrucoes
 
-document.getElementById("imagem").innerHTML = "<img src= 'churrasco.jpg' width= '250'>";
-const segundoIngrediente = receitasGauchas.ingredientes[1];
-console.log(segundoIngrediente);
+document.getElementById("ingredientes").textContent = receita.ingredientes.join(", ");
+
+// let ingred = document.createElement("li");
+// ingred.textContent = ingredientes.textContent;
+// document.getElementById("ingredientes").appendChild(ingred);
