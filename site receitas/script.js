@@ -8,10 +8,9 @@ function getListaIngredientes() { }
 
 function preencheCatalogo() { }
 
-// var json = []
-// fetch('./content.json').then(response => json = response.json())
+//fetch('./receitasGauchas.json').then(response => json = response.json()) //esta recebendo o arquivo json 
 
-var requestURL = "receitasGauchas.json" //aqui vem o conteudo do json
+
 const receitasGauchas =  [
   {
 
