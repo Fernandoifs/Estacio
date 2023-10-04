@@ -8,8 +8,11 @@ function getListaIngredientes() { }
 
 function preencheCatalogo() { }
 
-//var requestURL = //"receitasGauchas.json" aqui vem o conteudo do json
-const receitasGauchas = [
+// var json = []
+// fetch('./content.json').then(response => json = response.json())
+
+var requestURL = "receitasGauchas.json" //aqui vem o conteudo do json
+const receitasGauchas =  [
   {
 
   nome: "Churrasco",
@@ -21,7 +24,7 @@ const receitasGauchas = [
   ],
   instrucoes: "Tempere a carne com sal grosso, acenda o fogo de chão ou a churrasqueira e asse a carne até o ponto desejado. Sirva com os acompanhamentos.",
   imagem: "Churrasco.jpg"
-},
+}, 
 {
   nome: "Feijoada Gaúcha",
   ingredientes: [
@@ -98,3 +101,14 @@ for (let i = 0; i < receitasGauchas[1].ingredientes.length; i++) {
 
 let instr1 = document.getElementById('instrucoes1');
 instr1.textContent = receitasGauchas[1].instrucoes;
+///////////////////////////////////////////
+
+let novoContainer = document.querySelector("div#container")
+
+receitasGauchas.forEach(function(receitaNome){
+  let div = document.createElement('div');
+  div.classList.add("container");
+  div.textContent = receitaNome.nome;
+  novoContainer.appendChild(div);
+
+});
