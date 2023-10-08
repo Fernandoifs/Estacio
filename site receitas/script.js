@@ -1,5 +1,5 @@
 function getListaIngredientes() { }
-//document.getElementById("ingredientes").textContent = receita.ingredientes.join(", ");
+
 function getCard() { }
 
 function preencheCatalogo() { }
@@ -8,106 +8,87 @@ function getListaIngredientes() { }
 
 function preencheCatalogo() { }
 
-//fetch('./receitasGauchas.json').then(response => json = response.json()) //esta recebendo o arquivo json 
+function pesquisar() {
+  const searchInput = document.querySelector('.search-bar .search-input').value.toLowerCase();
+  const receitas = document.querySelectorAll('.receita');
 
+  receitas.forEach(receita => {
+    const nome = receita.querySelector('h2').textContent.toLowerCase();
 
-const receitasGauchas =  [
-  {
-
-  nome: "Churrasco",
-  ingredientes: [
-    "Carne (picanha, costela, linguiça)",
-    "Sal grosso",
-    "Fogo de chão ou churrasqueira",
-    "Acompanhamentos (farofa, vinagrete, pão com alho)"
-  ],
-  instrucoes: "Tempere a carne com sal grosso, acenda o fogo de chão ou a churrasqueira e asse a carne até o ponto desejado. Sirva com os acompanhamentos.",
-  imagem: "Churrasco.jpg"
-}, 
-{
-  nome: "Feijoada Gaúcha",
-  ingredientes: [
-    "Feijão preto",
-    "Carne de porco (linguiça, costela, orelha, pé)",
-    "Arroz",
-    "Couve manteiga",
-    "Farinha de mandioca",
-    "Laranja"
-  ],
-  instrucoes: "Cozinhe o feijão preto com as carnes de porco até ficarem macias. Sirva com arroz, couve manteiga refogada, farinha de mandioca e laranja em rodelas.",
-  imagem: "feijoada.jpg"
-},
-{
-  nome: "Arroz de Carreteiro",
-  ingredientes: [
-    "Carne de charque",
-    "Arroz",
-    "Cebola",
-    "Alho",
-    "Pimentão",
-    "Tomate",
-    "Temperos a gosto"
-  ],
-  instrucoes: "Corte a carne de charque em pedaços pequenos e refogue com cebola, alho, pimentão e tomate. Acrescente o arroz e cozinhe até que esteja pronto. Tempere a gosto e sirva.",
-  imagem: "carreteiro.jpg"
-},
-{
-  nome: "Cuca",
-  ingredientes: [
-    "Farinha de trigo",
-    "Açúcar",
-    "Ovos",
-    "Banha ou manteiga",
-    "Fermento biológico",
-    "Frutas (geralmente, banana ou maçã)",
-    "Canela"
-  ],
-  instrucoes: "Prepare uma massa com farinha de trigo, açúcar, ovos, banha ou manteiga e fermento biológico. Estenda a massa em uma forma, coloque as frutas por cima e polvilhe com açúcar e canela. Asse até dourar.",
-  imagem: "cuca.jpg"
-}
-]
-
-let nome0 = document.getElementById('nome');
-nome0.innerHTML = receitasGauchas[0].nome;
-
-let img0 = document.getElementById('imagem');
-img0.src = receitasGauchas[0].imagem;
-
-let ingred0 = document.getElementById("ingredientes");
-
-for (let i = 0; i < receitasGauchas[0].ingredientes.length; i++) {
-  let linha = document.createElement("li");
-  linha.textContent = receitasGauchas[0].ingredientes[i];
-  ingred0.appendChild(linha);
+    if (nome.includes(searchInput)) {
+      receita.style.display = '';
+    } else {
+      receita.style.display = 'none';
+    }
+  });
 }
 
-let instr0 = document.getElementById('instrucoes');
-instr0.textContent = receitasGauchas[0].instrucoes;
-////////////////////////////////////////////
-let nome1 = document.getElementById('nome1');
-nome1.innerHTML = receitasGauchas[1].nome;
+document.querySelector('.search-bar .search-input').focus();
+document.querySelector('.search-bar button').addEventListener('click', pesquisar);
 
-let img1 = document.getElementById('imagem1');
-img1.src = receitasGauchas[1].imagem;
-
-let ingred1 = document.getElementById("ingredientes1");
-
-for (let i = 0; i < receitasGauchas[1].ingredientes.length; i++) {
-  let linha = document.createElement("li");
-  linha.textContent = receitasGauchas[1].ingredientes[i];
-  ingred1.appendChild(linha);
-}
-
-let instr1 = document.getElementById('instrucoes1');
-instr1.textContent = receitasGauchas[1].instrucoes;
-///////////////////////////////////////////
-
-let novoContainer = document.querySelector("div#container")
-
-receitasGauchas.forEach(function(receitaNome){
-  let div = document.createElement('div');
-  div.classList.add("container");
-  div.textContent = receitaNome.nome;
-  novoContainer.appendChild(div);
-
+//adicionando com enter
+window.addEventListener("keypress", (e) => {
+  if (e.key === 'Enter') {
+    pesquisar();
+  }
 });
+
+
+fetch('./receitasGauchas.json')
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Erro ao carregar o arquivo JSON');
+    }
+    return response.json();
+  })
+  .then(data => {
+    const receitaRecebida = data.receitas_gauchas;
+
+    // Obtém o elemento pai onde as receitas serão adicionadas
+    const container = document.getElementById('receitas-container');
+
+    receitaRecebida.forEach(receita => {
+      // Cria uma div para a receita
+      const receitaDiv = document.createElement('div');
+      receitaDiv.className = 'receita';
+      receitaDiv.id = receita.nome;
+
+      // Adiciona o nome da receita à div
+      const nome = document.createElement('h2');
+      nome.textContent = receita.nome;
+      receitaDiv.appendChild(nome);
+
+      // Adiciona a imagem à div
+      const img = document.createElement('img');
+      img.src = receita.imagem;
+      receitaDiv.appendChild(img);
+
+      const textIngredientes = document.createElement('h4');
+      textIngredientes.textContent = 'Ingredientes';
+      receitaDiv.appendChild(textIngredientes)
+      // Adiciona os ingredientes à div
+      const ingredientes = document.createElement('ul');
+      receita.ingredientes.forEach(ingrediente => {
+        const li = document.createElement('li');
+        li.textContent = ingrediente;
+        ingredientes.appendChild(li);
+      });
+      receitaDiv.appendChild(ingredientes);
+
+      const textInstrucoes = document.createElement('h4');
+      textInstrucoes.textContent = 'Instruções';
+      receitaDiv.appendChild(textInstrucoes)
+
+      // Adiciona as instruções à div
+      const instrucoes = document.createElement('p');
+      instrucoes.textContent = receita.instrucoes;
+      receitaDiv.appendChild(instrucoes);
+
+      // Adiciona a div da receita ao container
+      container.appendChild(receitaDiv);
+    });
+  })
+  .catch(error => {
+    console.error('Erro ao carregar ou processar o arquivo JSON', error);
+  });
+
