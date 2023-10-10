@@ -92,3 +92,7 @@ fetch('./receitasGauchas.json')
     console.error('Erro ao carregar ou processar o arquivo JSON', error);
   });
 
+  function voltarPaginaInicial() {
+
+    window.location.href = "/site%20receitas/receitas.html";
+  }
