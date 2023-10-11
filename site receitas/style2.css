@@ -1,6 +1,6 @@
 body {
   font-family: Arial, sans-serif;
-  background-color: #f2f2f2;
+  background-color: bg-warning;
   margin: 0;
   padding: 0;
 }
@@ -25,12 +25,6 @@ header {
   border: none;
   border-radius: 5px;
   font-size: 16px;
-}
-
-.tituloProjeto {
-  flex: 1;
-  text-align: center;
-  margin: 0;
 }
 
 .dropdown {
@@ -79,67 +73,18 @@ button:hover {
   padding: 10px;
   font-size: 15px;
 }
-/* div.card{
+div.pnlCatalogo{
+  background-color: #9b9b9b;
+
+}
+ div.card{
   margin-left: 30px;
-
-} */
-
-section {
-  background-color: rgba(185, 162, 110, 0.692);
-  padding: 50px;
-}
-
-#receitas-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-
-}
-
-.receita {
-  display: flex;
-  flex-direction: column;
-  border: 1px solid #ffca98;
-  background-color: #f1f1f1;
-  border-radius: 15px;
-  padding: 10px;
-  margin: 10px;
-  width: 300px;
-  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
-  
-}
-
-.receita h2 {
-  text-align: center;
-  font-size: 1.5rem;
-  margin-bottom: 10px;
-}
-
-.receita img {
-  margin: 0 auto;
   width: 250px;
-  height: 150px;
-  border-radius: 15px;
-  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
-}
+  height: 300px;
+} 
 
-.receita h4 {
-  margin-bottom: 1px;
-}
-.receita ul {
-  text-align: left;
-  padding-left: 15px;
-}
 
-.receita ul li {
-  margin-left: 15px;
-  padding: 3px;
-}
 
-.receita p {
-
-  padding-left: 10px;
-}
 
 footer {
   background-color: #333;

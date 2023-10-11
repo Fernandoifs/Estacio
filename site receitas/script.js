@@ -9,18 +9,22 @@ function getListaIngredientes() { }
 function preencheCatalogo() { }
 
 function pesquisar() {
-  const searchInput = document.querySelector('.search-bar .search-input').value.toLowerCase();
-  const receitas = document.querySelectorAll('.receita');
+  const input = document.querySelector('.search-bar .search-input');
+  const valorInput = input.value.toLowerCase();
+  const receitasContainer = document.querySelector('.receitas-container');
+  const receitas = receitasContainer.querySelectorAll('.receita');
 
   receitas.forEach(receita => {
-    const nome = receita.querySelector('h2').textContent.toLowerCase();
+    const valorPesquisa = receita.querySelector('h2').textContent.toLowerCase();
 
-    if (nome.includes(searchInput)) {
+    if (valorPesquisa.includes(valorInput)) {
       receita.style.display = '';
     } else {
       receita.style.display = 'none';
     }
   });
+
+  input.value = '';
 }
 
 document.querySelector('.search-bar .search-input').focus();
