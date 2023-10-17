@@ -10,7 +10,7 @@
     <script src="script2.js" defer></script>
 </head>
 
-<body class="container-fluid bg-warning">
+<body class="container-fluid ">bg-warning>
     <header>
         <h1 class="tituloProjeto">Catálogo de Receitas</h1>
     </header>
@@ -24,6 +24,24 @@
 
            
     </div>
+    <section>
+
+        <div class="pnlCatalogo d-flex flex-wrap">
+            <div id="titulo">
+                <h2>Catálogo de Receitas</h2>
+            </div>
+
+
+            <div v-for="(user, index) in users" :key="index" class="col-md-3 p-2 m-3 card">
+                    <img id="imagem">
+                    <div class="card-body">
+                        <h5 class="card-title">--</h5>
+                        <p class="card-text">--</p>
+                    </div>
+            </div>
+        </div>
+
+    </section>
 
 
 
