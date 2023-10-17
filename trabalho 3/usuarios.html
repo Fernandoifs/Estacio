@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estrutura Modelo</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+    <!-- adicionar bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+</head>
+
+<body>
+    <header>
+        
+        <h1 class="tituloProjeto">Usuários de Teste via REST</h1>
+      
+    </header>
+
+    <section>
+        <div id="usuarios" class="container-fluid">
+            <h2>Usuários de Teste via REST</h2>
+            <p>Os usuários desde exemplo são forneceidos pela API de testes reqres.in</p>
+            <div class="row">
+
+                <div v-for="(user, index) in users" :key="index" class="col-md-4 p-2 m-3 card">
+                    <img :src="user.avatar" class="card-img-top" alt="User Avatar">
+                    <div class="card-body">
+                        <h5 class="card-title">{{user.first_name}} {{user.last_name}}</h5>
+                        <p class="card-text">{{user.email}}</p>
+                </div>
+
+            </div>
+          
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy;Fernando de Souza</p>
+    </footer>
+
+    <script>
+        var app = new Vue({
+            el: '#usuarios',
+            data: {
+                users: [ //usar fetch
+                    // Inserir os  dados dos usuários aqui
+                ]
+            }
+        })
+    </script>
+</body>
+
+</html>

@@ -13,52 +13,6 @@ header {
   align-items: center;
 }
 
-.search-bar {
-  width: 500px;
-  margin-right: 20px;
-  text-align: right; 
-  }
-
-.search-input {
-  width: 30%;
-  padding: 10px;
-  border: none;
-  border-radius: 5px;
-  font-size: 16px;
-}
-
-.tituloProjeto {
-  flex: 1;
-  text-align: center;
-  margin: 0;
-}
-
-.dropdown {
-  padding-left: 0;
-}
-
-.dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: #f1f1f1;
-  min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-}
-
-.dropdown-content a {
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
-}
-
-.dropdown-content a:hover {
-  background-color: #ddd;
-}
-
-.dropdown:hover .dropdown-content {
-  display: block;
-}
-
 .container {
   max-width: 800px;
   margin: 20px auto;
@@ -74,31 +28,7 @@ p {
   line-height: 1.6;
 }
 
-button {
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  padding: 10px 20px;
-  font-size: 16px;
-  cursor: pointer;
-  border-radius: 5px;
-}
 
-button:hover {
-  background-color: #0056b3;
-}
-
-/*
-section {
-    background-color: white;
-    border-radius: 10px;
-    padding: 15px;
-    width: 500px;
-    margin: auto;
-    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.301);
-}
-
-*/
 footer {
   color: #000000;
   text-align: center;
