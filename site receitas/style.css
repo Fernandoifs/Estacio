@@ -79,10 +79,6 @@ button:hover {
   padding: 10px;
   font-size: 15px;
 }
-/* div.card{
-  margin-left: 30px;
-
-} */
 
 section {
   background-color: rgba(185, 162, 110, 0.692);
@@ -137,7 +133,6 @@ section {
 }
 
 .receita p {
-
   padding-left: 10px;
 }
 
