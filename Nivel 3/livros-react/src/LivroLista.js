@@ -2,24 +2,29 @@ import { ControleLivros } from '../controle/ControleLivros';
 import { ControleEditora } from '../controle/ControleEditora';
 
 function LinhaLivro(props) {
-    const { livro, excluir } = props;
-  
-    const handleDelete = () => { excluir(livro.codigo); }
+  const { livro, excluir } = props;
 
-    const nomeEditora = controleEditora.getNomeEditora(livro.codEditora);
-  
-    return (
-      <tr>
-        <td> <button onClick={handleDelete}> Excluir </button> </td>
-        <td>{livro.codigo}</td>
-        <td>{livro.titulo}</td>
-        <td>{livro.resumo}</td>
-        <td>{livro.autores.join(', ')}</td>
-        
-      </tr>
-    );
-  }
-  
-  export default LinhaLivro;
+  const handleDelete = () => { excluir(livro.codigo); }
 
-  //estou adicionando o livro lista
+  const nomeEditora = controleEditora.getNomeEditora(livro.codEditora);
+
+  return (
+    <tr>
+      <td> <button onClick={handleDelete}> Excluir </button> </td>
+      <td>{livro.codigo}</td>
+      <td>{livro.titulo}</td>
+      <td>{livro.resumo}</td>
+      <td>
+        <ul>
+          {livro.autores.map((autor, index) => (
+            <li key={index}>{autor}</li>
+          ))}
+        </ul></td>
+
+    </tr>
+  );
+}
+
+export default LinhaLivro;
+
+//estou adicionando o livro lista
