@@ -1,6 +1,6 @@
 import { Editora } from '../modelo/Editora';
 
-const editoras = [
+var editoras = [
     {
         "codEditora": 1,
         "nome": "Editora 1"
@@ -16,9 +16,9 @@ const editoras = [
 ];
 const editoras2 = editoras.map(editoras => new Editora(editoras.codEditora, editoras.nome));
 
-class controleEditora {
+class ControleEditora {
 
-    private editoras2: Editora[];
+    public editoras2: Editora[];
 
     constructor(editoras: Editora[]) {
         this.editoras2 = editoras;
@@ -33,4 +33,5 @@ class controleEditora {
         return this.editoras2;
     }
 }
-     
+
+export default ControleEditora;

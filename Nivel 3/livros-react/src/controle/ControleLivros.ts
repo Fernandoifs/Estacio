@@ -25,16 +25,16 @@ const livros = [
 ];
 const livros2 = livros.map(livros => new Livro(livros.codEditora, livros.codigo, livros.titulo, livros.resumo, livros.autores));
 
+class ControleLivro {
 
-class controleLivro {
-
-    private livros2: Livro[];
+    public livros2: Livro[];
 
     constructor(livros: Livro[]) {
         this.livros2 = livros;
     }
 
     obterLivros(): Livro[] {
+        //console.log('Dados dos livros', livros2);
         return this.livros2;
     }
 
@@ -51,4 +51,4 @@ class controleLivro {
         }
     }
 }
-
+export default ControleLivro;
