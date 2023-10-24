@@ -7,18 +7,22 @@ function LinhaLivro({ livro, excluir }) {
   const handleDelete = () => { excluir(livro.codigo); }
   return (
     <tr>
-      <td> <button onClick={handleDelete}> Excluir </button> </td>
-      <td>{livro.titulo}</td>
-      <td>{livro.resumo}</td>
-      <td>{livro.nomeEditora}</td>
-      <td>
-        <ul>
-          {livro.autores.map((autor, index) => (
-            <li key={index}>{autor}</li>
-          ))}
-        </ul>
-      </td>
-    </tr>
+  <td>
+    {livro.titulo}
+    <br />
+    <button class="btn btn-danger" onClick={handleDelete}> Excluir </button>
+  </td>
+  <td>{livro.resumo}</td>
+  <td>{livro.nomeEditora}</td>
+  <td>
+    <ul>
+      {livro.autores.map((autor, index) => (
+        <li key={index}>{autor}</li>
+      ))}
+    </ul>
+  </td>
+</tr>
+
   );
 }
 
@@ -53,13 +57,13 @@ function LivroLista() {
     <main>
       <h1>Catálogo de Livros</h1>
       {carregado ? (
-        <table>
-          <thead>
+        <table class="table">
+          <thead class="thead-light">
             <tr>
-              <th>Título</th>
-              <th>Resumo</th>
-              <th>Editora</th>
-              <th>Autores</th>
+              <th scope="col" >Título</th>
+              <th scope="col" >Resumo</th>
+              <th scope="col">Editora</th>
+              <th scope="col">Autores</th>
             </tr>
           </thead>
           <tbody>
