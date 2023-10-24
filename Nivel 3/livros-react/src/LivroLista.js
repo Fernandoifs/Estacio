@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
+//import Table from 'react-bootstrap/Table';
 import ControleLivro  from './controle/ControleLivros';
 import ControleEditora from './controle/ControleEditora';
 
