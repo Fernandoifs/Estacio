@@ -6,14 +6,14 @@ const livros = [
         "codigo": 1,
         "titulo": "nomelivro1",
         "resumo": "",
-        "autores": [],
+        "autores": ['Fernando','Maria'],
     },
     {
         "codEditora": 2,
         "codigo": 2,
         "titulo": "nomelivro2",
         "resumo": "",
-        "autores": [],
+        "autores": ['Jonas'],
     },
     {
         "codEditora": 3,
@@ -34,18 +34,18 @@ class ControleLivro {
     }
 
     obterLivros(): Livro[] {
-        //console.log('Dados dos livros', livros2);
-        return this.livros2;
+        console.log('Dados dos livros',livros2);
+        return livros2;
     }
 
     incluirLivro(livro: Livro) {
-        const proxCodigo = Math.max(...this.livros2.map(livro => livro.codigo), 0);//adiciona o proximo codigo do livro
+        const proxCodigo = Math.max(...livros2.map(livro => livro.codigo), 0);//adiciona o proximo codigo do livro
         livro.codigo = proxCodigo + 1;
         this.livros2.push(livro);
     }
 
     excluirLivro(codigo: number) {
-        const index = this.livros2.findIndex(livro => livro.codigo === codigo);
+        const index = livros2.findIndex(livro => livro.codigo === codigo);
         if (index !== -1) {
             this.livros2.splice(index, 1);
         }

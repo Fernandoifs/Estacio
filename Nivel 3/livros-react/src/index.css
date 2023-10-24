@@ -11,3 +11,11 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.linha-par {
+  background-color: #f2f2f2;
+}
+
+.linha-impar {
+  background-color: #ffffff;
+}

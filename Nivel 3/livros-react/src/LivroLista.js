@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import ControleLivro  from './controle/ControleLivros';
 import ControleEditora from './controle/ControleEditora';
 
 function LinhaLivro({ livro, excluir }) {
   const handleDelete = () => { excluir(livro.codigo); }
-
   return (
     <tr>
       <td> <button onClick={handleDelete}> Excluir </button> </td>
@@ -26,16 +25,17 @@ function LivroLista() {
   const [livros, setLivros] = useState([]);
   const [carregado, setCarregado] = useState(false);
 
-  const controleLivro = new ControleLivro(livros);
-  const controleEditora = new ControleEditora();
+  const controleLivro = useMemo(() => { return new ControleLivro(livros); }, [livros]);
+  const controleEditora = useMemo(() => { return new ControleEditora(); }, []);
 
   useEffect(() => {
-    if (!carregado && controleLivro.livros2.length > 0) {
+    if (!carregado ) {
+
       const dadosLivros = controleLivro.obterLivros();
-      //console.log('Dados dos livros no componente:', dadosLivros);
-      const livrosComNomeEditora = dadosLivros.map(livro => {
-        const nomeEditora = controleEditora.getNomeEditora(livro.codEditora);  
-        return { ...livro, nomeEditora };
+      console.log('Dados dos livros no componente:', dadosLivros);
+      const livrosComNomeEditora = dadosLivros.map(livros => {
+        const nomeEditora = controleEditora.getNomeEditora(livros.codEditora);  
+        return { ...livros, nomeEditora };
       });
 
       setLivros(livrosComNomeEditora);
@@ -44,6 +44,8 @@ function LivroLista() {
   }, [carregado, controleLivro, controleEditora]);
 
   const excluir = (codigo) => {
+    controleLivro.excluirLivro(codigo);
+    setLivros(controleLivro.obterLivros());
   }
 
   return (

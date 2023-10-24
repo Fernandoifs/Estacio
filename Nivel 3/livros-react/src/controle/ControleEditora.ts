@@ -25,12 +25,12 @@ class ControleEditora {
     }
 
     getNomeEditora(codEditora: number): string | undefined {
-        const editoraFilter = this.editoras2.filter(editora => editora.codEditora === codEditora);
+        const editoraFilter = editoras2.filter(editora => editora.codEditora === codEditora);
         return editoraFilter.length > 0 ? editoraFilter[0].nome : undefined;
     }
 
     getEditoras(): Editora[] {
-        return this.editoras2;
+        return editoras2;
     }
 }
 
