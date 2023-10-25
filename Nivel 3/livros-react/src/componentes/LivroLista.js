@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import ControleLivro from './controle/ControleLivros';
-import ControleEditora from './controle/ControleEditora';
 import Table from 'react-bootstrap/Table';
+import ControleLivro from '../controle/ControleLivros';
+import ControleEditora from '../controle/ControleEditora';
+import 'bootstrap/dist/css/bootstrap.min.css';  
 
 function LinhaLivro({ livro, excluir }) {
   const handleDelete = () => { excluir(livro.codigo); }
@@ -12,7 +13,7 @@ function LinhaLivro({ livro, excluir }) {
         <br />
         <button className="btn btn-danger" onClick={handleDelete}> Excluir </button>
       </td>
-      <td>{livro.resumo}</td>
+      <td className="resumo-coluna">{livro.resumo}</td>
       <td>{livro.nomeEditora}</td>
       <td>
         <ul>
@@ -22,7 +23,6 @@ function LinhaLivro({ livro, excluir }) {
         </ul>
       </td>
     </tr>
-
   );
 }
 
@@ -58,12 +58,12 @@ function LivroLista() {
       <h1>Catálogo de Livros</h1>
       {carregado ? (
         <Table striped bordered hover>
-          <thead className="thead-dark">
+          <thead>
             <tr>
-              <th>Título</th>
-              <th>Resumo</th>
-              <th>Editora</th>
-              <th>Autores</th>
+              <th class="bg-dark text-white">Título</th>
+              <th class="bg-dark text-white">Resumo</th>
+              <th class="bg-dark text-white">Editora</th>
+              <th class="bg-dark text-white">Autores</th>
             </tr>
           </thead>
           <tbody>

@@ -1,6 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
-import LivroLista from './LivroLista';
+import LivroLista from './componentes/LivroLista';
+
 
 function App() {
   return (

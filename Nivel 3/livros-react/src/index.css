@@ -11,3 +11,15 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.resumo-coluna {
+  max-width: 200px;
+  word-wrap: break-word;
+}
+
+.theme-dark{
+  background-color: #343a40;
+  color: white;
+  margin-left: 5px;
+  padding: 50px;
+}
