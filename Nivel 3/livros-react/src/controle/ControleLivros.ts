@@ -11,9 +11,9 @@ const livros = [
     {
         "codEditora": 2,
         "codigo": 2,
-        "titulo": "nomelivro2",
-        "resumo": "",
-        "autores": ['Jonas'],
+        "titulo": "Use A Cabeça Java",
+        "resumo": "Use a Cabeça! Java é uma experiência completa de aprendizado em programação orientada a objetos (OO) e Java.",
+        "autores": ['Kathy Sierra'],
     },
     {
         "codEditora": 3,
@@ -34,7 +34,6 @@ class ControleLivro {
     }
 
     obterLivros(): Livro[] {
-        console.log('Dados dos livros',livros2);
         return livros2;
     }
 

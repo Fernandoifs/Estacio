@@ -1,27 +1,27 @@
 import React, { useState, useEffect, useMemo } from 'react';
-//import Table from 'react-bootstrap/Table';
-import ControleLivro  from './controle/ControleLivros';
+import ControleLivro from './controle/ControleLivros';
 import ControleEditora from './controle/ControleEditora';
+import Table from 'react-bootstrap/Table';
 
 function LinhaLivro({ livro, excluir }) {
   const handleDelete = () => { excluir(livro.codigo); }
   return (
     <tr>
-  <td>
-    {livro.titulo}
-    <br />
-    <button class="btn btn-danger" onClick={handleDelete}> Excluir </button>
-  </td>
-  <td>{livro.resumo}</td>
-  <td>{livro.nomeEditora}</td>
-  <td>
-    <ul>
-      {livro.autores.map((autor, index) => (
-        <li key={index}>{autor}</li>
-      ))}
-    </ul>
-  </td>
-</tr>
+      <td>
+        {livro.titulo}
+        <br />
+        <button className="btn btn-danger" onClick={handleDelete}> Excluir </button>
+      </td>
+      <td>{livro.resumo}</td>
+      <td>{livro.nomeEditora}</td>
+      <td>
+        <ul>
+          {livro.autores.map((autor, index) => (
+            <li key={index}>{autor}</li>
+          ))}
+        </ul>
+      </td>
+    </tr>
 
   );
 }
@@ -34,12 +34,12 @@ function LivroLista() {
   const controleEditora = useMemo(() => { return new ControleEditora(); }, []);
 
   useEffect(() => {
-    if (!carregado ) {
+    if (!carregado) {
 
       const dadosLivros = controleLivro.obterLivros();
-      console.log('Dados dos livros no componente:', dadosLivros);
+      //console.log('Dados dos livros no componente:', dadosLivros);
       const livrosComNomeEditora = dadosLivros.map(livros => {
-        const nomeEditora = controleEditora.getNomeEditora(livros.codEditora);  
+        const nomeEditora = controleEditora.getNomeEditora(livros.codEditora);
         return { ...livros, nomeEditora };
       });
 
@@ -50,20 +50,20 @@ function LivroLista() {
 
   const excluir = (codigo) => {
     controleLivro.excluirLivro(codigo);
-    setLivros(controleLivro.obterLivros());
+    setLivros([...controleLivro.obterLivros()]);
   }
 
   return (
     <main>
       <h1>Catálogo de Livros</h1>
       {carregado ? (
-        <table class="table">
-          <thead class="thead-light">
+        <Table striped bordered hover>
+          <thead className="thead-dark">
             <tr>
-              <th scope="col" >Título</th>
-              <th scope="col" >Resumo</th>
-              <th scope="col">Editora</th>
-              <th scope="col">Autores</th>
+              <th>Título</th>
+              <th>Resumo</th>
+              <th>Editora</th>
+              <th>Autores</th>
             </tr>
           </thead>
           <tbody>
@@ -71,7 +71,7 @@ function LivroLista() {
               <LinhaLivro key={livro.codigo} livro={livro} excluir={excluir} />
             ))}
           </tbody>
-        </table>
+        </Table>
       ) : (
         <p>Carregando...</p>
       )}
