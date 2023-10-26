@@ -24,29 +24,29 @@ const livros = [
     }
 ];
 const livros2 = livros.map(livros => new Livro(livros.codEditora, livros.codigo, livros.titulo, livros.resumo, livros.autores));
-
-class ControleLivro {
+/*se der erro tem que usar o map na public e o this na const*/
+class ControleLivro { 
 
     public livros2: Livro[];
 
-    constructor(livros: Livro[]) {
-        this.livros2 = livros;
+    constructor(livros: Livro[]) { //recebe um map do livros.json//
+        this.livros2 = livros
     }
 
     obterLivros(): Livro[] {
-        return livros2;
+        return this.livros2;
     }
 
     incluirLivro(livro: Livro) {
         const proxCodigo = Math.max(...livros2.map(livro => livro.codigo), 0);//adiciona o proximo codigo do livro
         livro.codigo = proxCodigo + 1;
-        this.livros2.push(livro);
+        livros2.push(livro);
     }
 
     excluirLivro(codigo: number) {
         const index = livros2.findIndex(livro => livro.codigo === codigo);
         if (index !== -1) {
-            this.livros2.splice(index, 1);
+            livros2.splice(index, 1);
         }
     }
 }

@@ -2,7 +2,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 import Table from 'react-bootstrap/Table';
 import ControleLivro from '../controle/ControleLivros';
 import ControleEditora from '../controle/ControleEditora';
-import 'bootstrap/dist/css/bootstrap.min.css';  
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function LinhaLivro({ livro, excluir }) {
   const handleDelete = () => { excluir(livro.codigo); }
@@ -50,7 +50,15 @@ function LivroLista() {
 
   const excluir = (codigo) => {
     controleLivro.excluirLivro(codigo);
-    setLivros([...controleLivro.obterLivros()]);
+    const dadosLivros = controleLivro.obterLivros();
+
+    console.log('Livros atualizados:', controleLivro.obterLivros());
+    
+    const livrosComNomeEditora = dadosLivros.map(livro => {
+      const nomeEditora = controleEditora.getNomeEditora(livro.codEditora);
+      return { ...livro, nomeEditora };
+    });
+    setLivros(livrosComNomeEditora);
   }
 
   return (
@@ -60,10 +68,10 @@ function LivroLista() {
         <Table striped bordered hover>
           <thead>
             <tr>
-              <th class="bg-dark text-white">Título</th>
-              <th class="bg-dark text-white">Resumo</th>
-              <th class="bg-dark text-white">Editora</th>
-              <th class="bg-dark text-white">Autores</th>
+              <th className="bg-dark text-white">Título</th>
+              <th className="bg-dark text-white">Resumo</th>
+              <th className="bg-dark text-white">Editora</th>
+              <th className="bg-dark text-white">Autores</th>
             </tr>
           </thead>
           <tbody>

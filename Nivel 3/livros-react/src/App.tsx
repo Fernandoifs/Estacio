@@ -1,39 +1,23 @@
-import 'bootstrap/dist/css/bootstrap.min.css';
-import './App.css';
+import React from 'react';
+import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import LivroLista from './componentes/LivroLista';
-
+import LivroDados from './componentes/LivroDados';
 
 function App() {
   return (
-    <div className="App">
-      <div>
-        <LivroLista />
-      </div>
-    </div>
+    <BrowserRouter>
+      <nav className="navbar navbar-expand-lg bg-dark ">
+        <ul className="navbar-nav mr-auto">
+          <Link className="nav-link text-white" to="/">Catálogo</Link>
+          <Link className="nav-link text-white" to="/dados">Novo</Link>
+        </ul>
+      </nav>
+      <Routes>
+        <Route path="/" element={<LivroLista />} />
+        <Route path="/dados" element={<LivroDados />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
 export default App;
-
-// import 'bootstrap/dist/css/bootstrap.min.css';
-// import './App.css';
-// import LivroLista from './componentes/LivroLista';
-// import LivroDados from './componentes/LivroDados';
-// import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-
-// function App() {
-//   return (
-//     <div className="App">
-//       <Router>
-//         <div>
-//           <Switch>
-//             <Route path="/" element={<LivroLista />} />
-//             <Route path="/dados" element={<LivroDados />} />
-//           </Switch>
-//         </div>
-//       </Router>
-//     </div>
-//   );
-// }
-
-// export default App;
