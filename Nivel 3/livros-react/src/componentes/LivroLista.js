@@ -1,19 +1,23 @@
-import React, { useState, useEffect, useMemo } from 'react';
-import Table from 'react-bootstrap/Table';
-import ControleLivro from '../controle/ControleLivros';
-import ControleEditora from '../controle/ControleEditora';
-import 'bootstrap/dist/css/bootstrap.min.css';
-
-import {arrayLivros} from '../controle/ControleLivros'; //rever se precisa mesmo
+import React, { useState, useEffect, useMemo } from "react";
+import Table from "react-bootstrap/Table";
+import ControleLivro from "../controle/ControleLivros";
+import ControleEditora from "../controle/ControleEditora";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { arrayLivros } from "../controle/ControleLivros";
 
 function LinhaLivro({ livro, excluir }) {
-  const handleDelete = () => { excluir(livro.codigo); }
+  const handleDelete = () => {
+    excluir(livro.codigo);
+  };
   return (
     <tr>
       <td>
         {livro.titulo}
         <br />
-        <button className="btn btn-danger" onClick={handleDelete}> Excluir </button>
+        <button className="btn btn-danger" onClick={handleDelete}>
+          {" "}
+          Excluir{" "}
+        </button>
       </td>
       <td className="resumo-coluna">{livro.resumo}</td>
       <td>{livro.nomeEditora}</td>
@@ -29,18 +33,19 @@ function LinhaLivro({ livro, excluir }) {
 }
 
 function LivroLista() {
-  const [livros, setLivros] = useState([])
+  const [livros, setLivros] = useState([]);
   const [carregado, setCarregado] = useState(false);
-
-  const controleLivro = useMemo(() => { return new ControleLivro(); }, []);
-  const controleEditora = useMemo(() => { return new ControleEditora(); }, []);
+  const controleLivro = useMemo(() => {
+    return new ControleLivro(arrayLivros);
+  }, []);
+  const controleEditora = useMemo(() => {
+    return new ControleEditora();
+  }, []);
 
   useEffect(() => {
     if (!carregado) {
-      const dadosLivros = controleLivro.obterLivros(arrayLivros);
-
-      console.log('Dados dos livros no componente:', dadosLivros);
-      const livrosComNomeEditora = dadosLivros.map(livro => {
+      const dadosLivros = controleLivro.obterLivros();
+      const livrosComNomeEditora = dadosLivros.map((livro) => {
         const nomeEditora = controleEditora.getNomeEditora(livro.codEditora);
         return { ...livro, nomeEditora };
       });
@@ -50,22 +55,18 @@ function LivroLista() {
     }
   }, [carregado, controleLivro, controleEditora]);
 
-
   const excluir = (codigo) => {
     controleLivro.excluirLivro(codigo);
     const dadosLivros = controleLivro.obterLivros();
-
-    console.log('Livros atualizados:', controleLivro.obterLivros());
-
-    const livrosComNomeEditora = dadosLivros.map(livro => {
+    const livrosComNomeEditora = dadosLivros.map((livro) => {
       const nomeEditora = controleEditora.getNomeEditora(livro.codEditora);
       return { ...livro, nomeEditora };
     });
     setLivros(livrosComNomeEditora);
-  }
+  };
 
   return (
-    <main  className="d-flex flex-column h-100 w-100 px-5">
+    <main className="d-flex flex-column h-100 w-100 px-5">
       <h1>Catálogo de Livros</h1>
       {carregado ? (
         <Table striped bordered hover>
