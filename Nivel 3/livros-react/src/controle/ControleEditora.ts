@@ -3,19 +3,15 @@ import { Editora } from '../modelo/Editora';
 var editoras = [
     {
         "codEditora": 1,
-        "nome": "Editora 1"
+        "nome": "Editora Fantasy"
     },
     {
         "codEditora": 2,
-        "nome": "Editora 2"
+        "nome": "Editora Clássicos"
     },
     {
         "codEditora": 3,
-        "nome": "Editora 3"
-    },
-    {
-        "codEditora": 4,
-        "nome": "Editora 4"
+        "nome": "Editora Mágica"
     },
 ];
 const editoras2 = editoras.map(editoras => new Editora(editoras.codEditora, editoras.nome));

@@ -4,34 +4,26 @@ const livros = [
     {
         "codEditora": 1,
         "codigo": 1,
-        "titulo": "nomelivro1",
-        "resumo": "",
-        "autores": ['Fernando','Maria'],
+        "titulo": "O Senhor dos Anéis",
+        "resumo": "Uma grande aventura na Terra Média",
+        "autores": ["J.R.R. Tolkien"]
     },
     {
         "codEditora": 2,
         "codigo": 2,
-        "titulo": "Use A Cabeça Java",
-        "resumo": "Use a Cabeça! Java é uma experiência completa de aprendizado em programação orientada a objetos (OO) e Java.",
-        "autores": ['Kathy Sierra'],
+        "titulo": "Dom Quixote",
+        "resumo": "As aventuras do Cavaleiro da Triste Figura",
+        "autores": ["Miguel de Cervantes"]
     },
     {
         "codEditora": 3,
         "codigo": 3,
-        "titulo": "nomelivro3",
-        "resumo": "",
-        "autores": [],
-    },
-    {
-        "codEditora": 4,
-        "codigo": 4,
-        "titulo": "nomelivro4",
-        "resumo": "",
-        "autores": ['Gustavo'],
+        "titulo": "Harry Potter e a Pedra Filosofal",
+        "resumo": "A história do jovem bruxo Harry Potter",
+        "autores": ["J.K. Rowling"]
     }
-];
-
-class ControleLivro { 
+]
+class ControleLivro {
     public livrosCarregados: Livro[];
 
     constructor(livros: Livro[]) {
