@@ -12,7 +12,11 @@ var editoras = [
     {
         "codEditora": 3,
         "nome": "Editora 3"
-    }
+    },
+    {
+        "codEditora": 4,
+        "nome": "Editora 4"
+    },
 ];
 const editoras2 = editoras.map(editoras => new Editora(editoras.codEditora, editoras.nome));
 
@@ -24,14 +28,14 @@ class ControleEditora {
         this.editoras2 = editoras;
     }
 
-    getNomeEditora(codEditora: number): string | undefined {
-        const editoraFilter = editoras2.filter(editora => editora.codEditora === codEditora);
-        return editoraFilter.length > 0 ? editoraFilter[0].nome : undefined;
-    }
-
     getEditoras(): Editora[] {
         return editoras2;
     }
+
+    getNomeEditora(codEditora: number): string | undefined {
+        const editoraFilter = editoras2.filter(editora => editora.codEditora === codEditora);
+        return editoraFilter.length > 0 ? editoraFilter[0].nome : undefined;
+    }   
 }
 
 export default ControleEditora;

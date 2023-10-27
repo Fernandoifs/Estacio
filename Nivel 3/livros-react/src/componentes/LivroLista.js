@@ -4,6 +4,8 @@ import ControleLivro from '../controle/ControleLivros';
 import ControleEditora from '../controle/ControleEditora';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+import {arrayLivros} from '../controle/ControleLivros'; //rever se precisa mesmo
+
 function LinhaLivro({ livro, excluir }) {
   const handleDelete = () => { excluir(livro.codigo); }
   return (
@@ -27,20 +29,20 @@ function LinhaLivro({ livro, excluir }) {
 }
 
 function LivroLista() {
-  const [livros, setLivros] = useState([]);
+  const [livros, setLivros] = useState([])
   const [carregado, setCarregado] = useState(false);
 
-  const controleLivro = useMemo(() => { return new ControleLivro(livros); }, [livros]);
+  const controleLivro = useMemo(() => { return new ControleLivro(); }, []);
   const controleEditora = useMemo(() => { return new ControleEditora(); }, []);
 
   useEffect(() => {
     if (!carregado) {
+      const dadosLivros = controleLivro.obterLivros(arrayLivros);
 
-      const dadosLivros = controleLivro.obterLivros();
-      //console.log('Dados dos livros no componente:', dadosLivros);
-      const livrosComNomeEditora = dadosLivros.map(livros => {
-        const nomeEditora = controleEditora.getNomeEditora(livros.codEditora);
-        return { ...livros, nomeEditora };
+      console.log('Dados dos livros no componente:', dadosLivros);
+      const livrosComNomeEditora = dadosLivros.map(livro => {
+        const nomeEditora = controleEditora.getNomeEditora(livro.codEditora);
+        return { ...livro, nomeEditora };
       });
 
       setLivros(livrosComNomeEditora);
@@ -48,12 +50,13 @@ function LivroLista() {
     }
   }, [carregado, controleLivro, controleEditora]);
 
+
   const excluir = (codigo) => {
     controleLivro.excluirLivro(codigo);
     const dadosLivros = controleLivro.obterLivros();
 
     console.log('Livros atualizados:', controleLivro.obterLivros());
-    
+
     const livrosComNomeEditora = dadosLivros.map(livro => {
       const nomeEditora = controleEditora.getNomeEditora(livro.codEditora);
       return { ...livro, nomeEditora };
@@ -62,7 +65,7 @@ function LivroLista() {
   }
 
   return (
-    <main>
+    <main  className="d-flex flex-column h-100 w-100 px-5">
       <h1>Catálogo de Livros</h1>
       {carregado ? (
         <Table striped bordered hover>
