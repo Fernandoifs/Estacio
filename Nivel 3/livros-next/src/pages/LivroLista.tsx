@@ -1,42 +1,45 @@
 import React, { useState, useEffect } from "react";
 import type { NextPage } from "next";
-import styles from '../styles/Home.module.css'
+import styles from "@/styles/Home.module.css";
 import { Menu } from "@/classes/componentes/Menu";
 import Head from "next/head";
+import Table from "react-bootstrap/Table";
 import { Livro } from "@/classes/modelo/Livro";
+import { LinhaLivro } from "@/classes/componentes/LinhaLivro";
+
 
 const baseURL = "http://localhost:3000/api/livros";
+
 const obter = async () => {
   const resposta = await fetch(baseURL);
   const dados = await resposta.json();
   return dados;
 };
+
 const excluirLivro = async (codigo: number) => {
   const resposta = await fetch(`${baseURL}/${codigo}`, {
     method: "DELETE",
   });
   return resposta.ok;
 };
-export const LivroLista: React.FC = () => {
+
+const LivroLista: NextPage = () => {
   const [livros, setLivros] = useState<Livro[]>([]);
   const [carregado, setCarregado] = useState<boolean>(false);
 
-  const obterLivros = async () => {
-    const livrosObtidos = await obter();
-    setLivros(livrosObtidos);
-    setCarregado(true);
-  };
+  useEffect(() => {
+    if (!carregado) {
+      obter().then((livros) => {
+        setLivros(livros);
+        setCarregado(true);
+      });
+    }
+  }, [carregado]);
 
   const excluir = async (codigo: number) => {
     await excluirLivro(codigo);
     setCarregado(false);
   };
-
-  useEffect(() => {
-    if (!carregado) {
-      obterLivros();
-    }
-  }, [carregado]);
 
   return (
     <div className={styles.container}>
@@ -44,15 +47,15 @@ export const LivroLista: React.FC = () => {
         <title>Loja Next</title>
       </Head>
       <Menu />
-      <main>
-        <h1>Lista de Livros</h1>
-        <table>
+      <main className="d-flex flex-column h-100 w-100 px-5">
+        <h1>Catálogo de Livros</h1>
+        <Table striped bordered hover>
           <thead>
             <tr>
-              <th>Título</th>
-              <th>Resumo</th>
-              <th>Editora</th>
-              <th>Autores</th>
+              <th className="bg-dark text-white ">Título</th>
+              <th className="bg-dark text-white">Resumo</th>
+              <th className="bg-dark text-white">Editora</th>
+              <th className="bg-dark text-white">Autores</th>
             </tr>
           </thead>
           <tbody>
@@ -60,16 +63,14 @@ export const LivroLista: React.FC = () => {
               <LinhaLivro
                 key={livro.codigo}
                 livro={livro}
-                excluir={() => excluir(livro.codigo)}
+                //editora={editora}
+                excluir={excluir}
               />
             ))}
           </tbody>
-        </table>
+        </Table>
       </main>
     </div>
   );
 };
-
-const styless = {
-  container: {},
-};
+export default LivroLista;

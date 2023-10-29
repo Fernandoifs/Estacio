@@ -1,37 +1,33 @@
 import React from "react";
-import type { NextPage } from "next";
-import styles from "../styles/Home.module.css";
-import ControleLivro, { arrayLivros } from "../controle/ControleLivros";
-import ControleEditora, { arrayEditoras } from "../controle/ControleEditora";
-import { Livro } from "../modelo/Livro";
+import { Livro } from "@/classes/modelo/Livro"
+import ControleEditora, { arrayEditoras } from "@/classes/controle/ControleEditora";
 
-//const controleEditora = new ControleEditora(arrayEditoras);
-//const controleLivro = new ControleLivro(arrayLivros);
+const controleEditora = new ControleEditora(arrayEditoras);
 
 interface LinhaLivroProps {
   livro: Livro;
   excluir: (codigo: number) => void;
 }
-
-export const LinhaLivro: React.FC<LinhaLivroProps> = ({ livro, excluir }) => {
+export const LinhaLivro: React.FC<LinhaLivroProps> = (props) => {
   const handleDelete = () => {
-    excluir(livro.codigo);
+    props.excluir(props.livro.codigo);
   };
+  const nomeEditora = controleEditora.getNomeEditora(props.livro.codEditora);
   return (
     <tr>
       <td>
-        {livro.titulo}
+        {props.livro.titulo}
         <br />
         <button className="btn btn-danger" onClick={handleDelete}>
           {" "}
           Excluir{" "}
         </button>
       </td>
-      <td className="resumo-coluna">{livro.resumo}</td>
-      <td>{livro.nomeEditora}</td>
+      <td className="resumo-coluna">{props.livro.resumo}</td>
+      <td>{nomeEditora}</td>
       <td>
         <ul>
-          {livro.autores.map((autor, index) => (
+          {props.livro.autores.map((autor, index) => (
             <li key={index}>{autor}</li>
           ))}
         </ul>

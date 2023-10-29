@@ -4,18 +4,20 @@ import Link from "next/link";
 export const Menu: React.FC = () => {
   return (
     <>
-      <nav className="bg-dark text-white">
-        <Link href="/" legacyBehavior>
-          <a className="navbar-brand">Início</a>
-        </Link>
+      <nav className="navbar navbar-expand-lg bg-dark ">
+        <ul className="navbar-nav mr-auto">
+          <Link href="/" legacyBehavior>
+            <a className="nav-link text-white">Início</a>
+          </Link>
 
-        <Link href="/LivroLista" legacyBehavior>
-          <a className="nav-link">Catálago</a>
-        </Link>
+          <Link href="/LivroLista" legacyBehavior>
+            <a className="nav-link text-white">Catálago</a>
+          </Link>
 
-        <Link href="/LivroDados" legacyBehavior>
-          <a className="nav-link">Novo</a>
-        </Link>
+          <Link href="/LivroDados" legacyBehavior>
+            <a className="nav-link text-white">Novo</a>
+          </Link>
+        </ul>
       </nav>
     </>
   );

@@ -1,4 +1,4 @@
-import { Editora } from "../modelo/Editora";
+import { Editora } from "@/classes/modelo/Editora";
 
 var editoras = [
   {
@@ -14,22 +14,19 @@ var editoras = [
     nome: "Editora Mágica",
   },
 ];
-const editoras2 = editoras.map(
-  (editoras) => new Editora(editoras.codEditora, editoras.nome)
-);
 
-export default class ControleEditora {
+class ControleEditora {
   public editoras2: Editora[];
 
   constructor(editoras: Editora[]) {
     this.editoras2 = editoras;
   }
 
-  async getEditoras(): Promise<Editora[]> {
+  getEditoras(): Editora[] {
     return this.editoras2;
   }
 
-  async getNomeEditora(codEditora: number): Promise<string | undefined> {
+  getNomeEditora(codEditora: number): string | undefined {
     const editoraFilter = this.editoras2.filter(
       (editora) => editora.codEditora === codEditora
     );
@@ -37,6 +34,6 @@ export default class ControleEditora {
   }
 }
 export const arrayEditoras = editoras.map(
-  (editora) => new Editora(editora.codEditora, editora.nome)
+  (editoras) => new Editora(editoras.codEditora, editoras.nome)
 );
-
+export default ControleEditora;

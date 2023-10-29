@@ -1,9 +1,7 @@
 .main {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  padding: 6rem;
+  padding-left: 35px;
   min-height: 100vh;
 }
 
@@ -226,12 +224,5 @@
   }
 }
 
-styles.main {
-  display: flex;
-  flex-direction: column;
-}
 
-styles.title {
-  display: flex;
-  flex-direction: column;
-}
+
