@@ -5,6 +5,7 @@ import ControleEditora from "../controle/ControleEditora";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { arrayLivros } from "../controle/ControleLivros";
 
+
 function LinhaLivro({ livro, excluir }) {
   const handleDelete = () => {
     excluir(livro.codigo);
@@ -32,7 +33,7 @@ function LinhaLivro({ livro, excluir }) {
   );
 }
 
-export function LivroLista() {
+export default function LivroLista() {
   const [livros, setLivros] = useState([]);
   const [carregado, setCarregado] = useState(false);
 

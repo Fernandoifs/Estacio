@@ -1,10 +1,9 @@
 import React, { useState, useEffect, useMemo } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { useNavigate } from "react-router-dom";
-import { ControleLivro } from "../controle/ControleLivros";
-import { ControleEditora } from "../controle/ControleEditora";
-
+import ControleLivro from "../controle/ControleLivros";
+import ControleEditora from "../controle/ControleEditora";
 import { arrayLivros } from "../controle/ControleLivros";
+import { useNavigate } from "react-router-dom";
 
 function LivroDados() {
   const controleLivro = useMemo(() => {
