@@ -18,7 +18,7 @@ const editoras2 = editoras.map(
   (editoras) => new Editora(editoras.codEditora, editoras.nome)
 );
 
-class ControleEditora {
+export default class ControleEditora {
   public editoras2: Editora[];
 
   constructor(editoras: Editora[]) {
@@ -40,4 +40,3 @@ export const arrayEditoras = editoras.map(
   (editora) => new Editora(editora.codEditora, editora.nome)
 );
 
-export default ControleEditora;

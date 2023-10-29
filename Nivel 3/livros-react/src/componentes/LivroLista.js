@@ -32,15 +32,12 @@ function LinhaLivro({ livro, excluir }) {
   );
 }
 
-function LivroLista() {
+export function LivroLista() {
   const [livros, setLivros] = useState([]);
   const [carregado, setCarregado] = useState(false);
-  const controleLivro = useMemo(() => {
-    return new ControleLivro(arrayLivros);
-  }, []);
-  const controleEditora = useMemo(() => {
-    return new ControleEditora();
-  }, []);
+
+  const controleLivro = useMemo(() => { return new ControleLivro(arrayLivros); }, []);
+  const controleEditora = useMemo(() => { return new ControleEditora(); }, []);
 
   useEffect(() => {
     if (!carregado) {
@@ -90,5 +87,3 @@ function LivroLista() {
     </main>
   );
 }
-
-export default LivroLista;

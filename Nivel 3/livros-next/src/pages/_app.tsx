@@ -1,7 +1,16 @@
-import '@/styles/globals.css'
-import type { AppProps } from 'next/app'
+import "bootstrap/dist/css/bootstrap.min.css";
+import "@/styles/globals.css";
+import type { AppProps } from "next/app";
+import Head from "next/head";
 
 export default function App({ Component, pageProps }: AppProps) {
-  //return <Component {...pageProps} />
-  return <h1>meu aplicativo</h1>
+  //return
+  return (
+    <>
+      <Head>
+        <meta name="viewport" content="width=device-width, initical-scale=1" />
+      </Head>
+      <Component {...pageProps} />
+    </>
+  );
 }
