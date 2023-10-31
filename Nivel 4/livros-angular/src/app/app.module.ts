@@ -3,8 +3,12 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { LivroListaComponent } from './LivroLista/LivroListaComponent';
-import { LivroDadosComponent } from './LivroDados/LivroDadosComponent';
+import { LivroListaComponent } from './LivroLista/livro-lista.component';
+import { LivroDadosComponent } from './LivroDados/livro-dados.component';
+import { ControleEditoraService } from './controle-editora.service';
+import { ControleLivrosService } from './controle-livros.service';
+import { FormsModule } from '@angular/forms';
+
 
 @NgModule({
   declarations: [
@@ -14,9 +18,10 @@ import { LivroDadosComponent } from './LivroDados/LivroDadosComponent';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule
   ],
-  providers: [],
+  providers: [ControleEditoraService, ControleLivrosService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

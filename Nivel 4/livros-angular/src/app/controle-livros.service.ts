@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Livro } from './Livro';
+import { Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -9,41 +10,42 @@ export class ControleLivrosService {
   {
     codEditora: 1,
     codigo: 1,
-    título: "O Senhor dos Anéis",
+    titulo: "O Senhor dos Anéis",
     resumo: "Uma grande aventura na Terra Média",
     autores: ["J.R.R. Tolkien"],
   },
   {
     codEditora: 2,
     codigo: 2,
-    título: "Dom Quixote",
+    titulo: "Dom Quixote",
     resumo: "As aventuras do Cavaleiro da Triste Figura",
     autores: ["Miguel de Cervantes"],
   },
   {
     codEditora: 3,
     codigo: 3,
-    título: "Harry Potter e a Pedra Filosofal",
+    titulo: "Harry Potter e a Pedra Filosofal",
     resumo: "A história do jovem bruxo Harry Potter",
     autores: ["J.K. Rowling"],
   },
   ]
   constructor() { }
 
-  obterLivros(): Livro[] {
-    return this.livros;
+  obterLivros(): Observable<Livro[]> {
+    return of(this.livros);
   }
 
-  incluirLivro(livro: Livro) {
+  incluirLivro(livro: Livro): Observable<Livro> {
     const proxCodigo = Math.max(
       ...this.livros.map((livro) => livro.codigo),
       0
     );
     livro.codigo = proxCodigo + 1;
     this.livros.push(livro);
+    return of(livro);
   }
 
-  excluirLivro(codigo: number) {
+  excluirLivro(codigo: number): Observable<void> {
     const index = this.livros.findIndex(
       (livro) => livro.codigo === codigo
     );
@@ -52,5 +54,6 @@ export class ControleLivrosService {
     } else {
       console.log("Livro não encontrado!");
     }
+    return of(undefined);
   }
 }
