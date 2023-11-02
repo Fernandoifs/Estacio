@@ -1,4 +1,4 @@
-<main class="d-flex flex-column h-100 w-100 px-5"> <!--não esta funcionando o bootstrap -->
+<main class="d-flex flex-column h-100 w-100 px-5">
     <h1 class="my-4">Lista de Livros</h1>
 
     <table class="table table-striped">
@@ -16,7 +16,9 @@
                     <button class="btn btn-danger" (click)="excluir(livro.codigo)">Excluir</button>
                 </td>
                 <td>{{ livro.resumo }}</td>
-                <td>{{ obterNome(livro.codEditora) | async }}</td>
+                <td>
+                    {{ obterNome(livro.codEditora) | async }}
+                </td>
                 <td>
                     <ul>
                         <li *ngFor="let autor of livro.autores">{{ autor }}</li>

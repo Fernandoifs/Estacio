@@ -29,8 +29,9 @@ export class ControleEditoraService {
 
   getNomeEditora(codEditora: number): Observable<string | undefined> {
     const editoraFilter = this.editoras.filter(
-      (editora) => editora.codEditora === codEditora
+      (editora) => editora.codEditora === codEditora,
     );
     return of(editoraFilter.length > 0 ? editoraFilter[0].nome : undefined);
+    
   }
 }

@@ -25,19 +25,21 @@ export class LivroListaComponent implements OnInit {
     this.servLivros = servLivros;
   }
   ngOnInit(): void {
-    this.servEditora.getEditoras().subscribe((data) => {
-      this.editoras = data;
+    this.servEditora.getEditoras().subscribe((editoras) => {
+      this.editoras = editoras;
+      console.log('Editoras disponíveis:', this.editoras.map(e => e.codEditora));
     });
 
-    this.servLivros.obterLivros().subscribe((data) => {
-      this.livros = data;
+    this.servLivros.obterLivros().subscribe((livros) => {
+      this.livros = livros;
     });
   }
 
   excluir = (codigo: number): void => {
     this.servLivros.excluirLivro(codigo).subscribe(() => {
-      this.servLivros.obterLivros().subscribe((data) => {
-        this.livros = data;
+      this.servLivros.obterLivros().subscribe((livros) => {
+        this.livros = livros;
+        console.log('Códigos das editoras nos livros:', this.livros.map(l => l.codEditora));
       });
     });
   };

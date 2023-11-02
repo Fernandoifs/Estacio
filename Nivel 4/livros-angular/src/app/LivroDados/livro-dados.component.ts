@@ -11,20 +11,26 @@ import { Router } from '@angular/router';
   styleUrls: ['./livro-dados.component.css'],
 })
 export class LivroDadosComponent implements OnInit {
-  public livro: Livro;
+  public livro: Livro = new Livro();
   public autoresForm: string = '';
   public editoras: Editora[] = [];
+
   constructor(
     private servEditora: ControleEditoraService,
     private servLivros: ControleLivrosService,
     private router: Router
-  ) {
-    this.livro = servLivros.livros[0];
-  }
+  ) { }
 
-  ngOnInit(): void {
-    this.servEditora.getEditoras().subscribe((editoras) => {
+  ngOnInit(): void { /// não pega a editora
+    this.servEditora.getEditoras().subscribe(editoras => {
       this.editoras = editoras;
     });
+  
   }
+
+  incluir = (): void => {
+    this.livro.autores = this.autoresForm.split('\n');
+    this.servLivros.incluirLivro(this.livro);
+    this.router.navigateByUrl('/lista');
+  };
 }

@@ -43,6 +43,7 @@ export class ControleLivrosService {
     livro.codigo = proxCodigo + 1;
     this.livros.push(livro);
     return of(livro);
+    
   }
 
   excluirLivro(codigo: number): Observable<void> {
@@ -51,9 +52,7 @@ export class ControleLivrosService {
     );
     if (index !== -1) {
       this.livros.splice(index, 1);
-    } else {
-      console.log("Livro não encontrado!");
-    }
+    } 
     return of(undefined);
   }
 }
