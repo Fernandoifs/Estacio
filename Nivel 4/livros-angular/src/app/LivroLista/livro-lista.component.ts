@@ -27,7 +27,6 @@ export class LivroListaComponent implements OnInit {
   ngOnInit(): void {
     this.servEditora.getEditoras().subscribe((editoras) => {
       this.editoras = editoras;
-      console.log('Editoras disponíveis:', this.editoras.map(e => e.codEditora));
     });
 
     this.servLivros.obterLivros().subscribe((livros) => {
@@ -39,12 +38,19 @@ export class LivroListaComponent implements OnInit {
     this.servLivros.excluirLivro(codigo).subscribe(() => {
       this.servLivros.obterLivros().subscribe((livros) => {
         this.livros = livros;
-        console.log('Códigos das editoras nos livros:', this.livros.map(l => l.codEditora));
       });
     });
   };
 
-  obterNome = (codEditora: number): Observable<string | undefined> => {
-    return this.servEditora.getNomeEditora(codEditora);
+  obterNome = (codEditora: number): string | undefined => {
+    const editora = this.editoras.find((e) => e.codEditora == codEditora);
+    if (!editora) {
+      console.log('Editora not found for codEditora:', codEditora);
+    }
+
+    return editora ? editora.nome : undefined;
   };
 }
+//erro ao incluir novo livro com a editora na tabela, e.codEditora == codEditora, para converter 
+// ambos os lados para que encontrasse corretamente, ('5'== 5 = true) e com erro('5'=== 5 = false)
+

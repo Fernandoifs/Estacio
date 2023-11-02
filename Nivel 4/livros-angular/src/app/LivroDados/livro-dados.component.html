@@ -9,6 +9,7 @@
         <textarea id="resumo" required [(ngModel)]="livro.resumo" name="resumo" class="form-control"></textarea>
 
         <label for="editora" class="form-label w-100">Editora:</label>
+        
         <select id="editora" name="editora" class="form-control" [(ngModel)]="livro.codEditora">
             <option *ngFor="let editora of editoras" [value]="editora.codEditora">{{ editora.nome }}</option>
         </select>

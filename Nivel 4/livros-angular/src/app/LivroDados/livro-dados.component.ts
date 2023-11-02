@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./livro-dados.component.css'],
 })
 export class LivroDadosComponent implements OnInit {
-  public livro: Livro = new Livro();
+  public livro: Livro
   public autoresForm: string = '';
   public editoras: Editora[] = [];
 
@@ -19,9 +19,11 @@ export class LivroDadosComponent implements OnInit {
     private servEditora: ControleEditoraService,
     private servLivros: ControleLivrosService,
     private router: Router
-  ) { }
+  ) {
+    this.livro = new Livro(0, this.editoras[1]?.codEditora);
+   }
 
-  ngOnInit(): void { /// não pega a editora
+  ngOnInit(): void {
     this.servEditora.getEditoras().subscribe(editoras => {
       this.editoras = editoras;
     });
