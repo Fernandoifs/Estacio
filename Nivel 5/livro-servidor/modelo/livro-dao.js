@@ -1,10 +1,13 @@
-const Livro = require("Livro");
+const { Livro } = require('./livro-schema');
 
 const obterLivros = async () => {
   return await Livro.find();
 };
-const incluir = async (codigo) => {
+const incluir = async (livro) => {
+  return await Livro.create(livro);
+};
+const excluir = async (codigo) => {
   return await Livro.deleteOne({ _id: codigo });
 };
 
-module.exports = { Livro, obterLivros, incluir };
+module.exports = { Livro, obterLivros, excluir, incluir };
