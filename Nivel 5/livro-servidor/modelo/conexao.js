@@ -6,8 +6,7 @@ options = {
   useNewUrlParser: true,
 };
 
-banco
-  .connect(url, options)
+banco.connect(url, options)
   .then(() => {
     console.log("Conectado com sucesso!");
   })
