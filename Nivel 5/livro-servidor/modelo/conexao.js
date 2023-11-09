@@ -1,5 +1,6 @@
 const banco = require("mongoose");
-const url = "mongodb://localhost:27017/livraria";
+const url = "localhost:27017/livraria";
+mongodb://localhost:27017/
 
 options = {
   useUnifiedTopology: true,
