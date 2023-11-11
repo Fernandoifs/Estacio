@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cadastro</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="formatos.css" />
+    <style>
+        body { background-color: #fcba8f; }
+    </style>
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light custom-navbar">
+            <ul>
+                <li >
+                    <a class="nav-link" href="home.html">Home</a>
+                </li>
+                <li >
+                    <a class="nav-link" href="receitas.html">Receitas</a>
+                </li>
+                <li >
+                    <a class="nav-link" href="cadastro.html">Cadastro</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container-fluid mt-5">
+        <section id="areaPrincipalCadastro">
+            <h1>Efetue seu Cadastro</h1>
+            <div id="cadastro-container">
+            <form action="seu_email@dominio.com" method="post">
+                <div class="form-row">
+                    <label for="nome">Nome</label>
+                    <input type="text" class="form-control" id="nome" required />
+                </div>
+
+                <div class="form-row">
+                    <label for="email">E-mail</label>
+                    <input type="email" class="form-control" id="email" required />
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="rua">Rua</label>
+                        <input type="text" class="form-control" id="rua" required />
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="numero">Número</label>
+                        <input type="text" class="form-control" id="numero" required />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="complemento">Complemento</label>
+                    <input type="text" class="form-control" id="complemento" />
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="cidade">Cidade</label>
+                        <input type="text" class="form-control" id="cidade" required />
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="estado">Estado</label>
+                        <input type="text" class="form-control" id="estado" required />
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label for="cep">CEP</label>
+                        <input type="text" class="form-control" id="cep" required />
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-secondary btn-lg">
+                    Cadastrar
+                </button>
+            </form>
+            </div>
+        </section>
+    </main>
+</body>
+<footer>
+    <p>&copy; Site de Receitas 2023 </p>
+</footer>
+
+</html>
