@@ -1,6 +1,5 @@
 const { obterLivros, incluir, excluir } = require('../modelo/livro-dao');
 const express = require('express');
-
 const router = express.Router();
 
 router.get('/', async (req, res) => {
