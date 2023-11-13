@@ -29,23 +29,24 @@ export class LivroListaComponent implements OnInit {
       this.editoras = editoras;
     });
 
-    this.servLivros.obterLivros().subscribe((livros) => {
+    this.servLivros.obterLivros().then((livros) => {
       this.livros = livros;
     });
   }
 
-  excluir = (codigo: number): void => {
-    this.servLivros.excluirLivro(codigo).subscribe(() => {
-      this.servLivros.obterLivros().subscribe((livros) => {
-        this.livros = livros;
-      });
-    });
+  excluir = async (codigo: string): Promise<void> => {
+    try {
+      await this.servLivros.excluirLivro(codigo);
+      this.livros = await this.servLivros.obterLivros();
+    } catch (error) {
+      console.error('Erro ao excluir o livro:', error);
+    }
   };
-
+  
   obterNome = (codEditora: number): string | undefined => {
     const editora = this.editoras.find((e) => e.codEditora == codEditora);
     if (!editora) {
-      console.log('Editora not found for codEditora:', codEditora);
+      console.log('Editora não encontrada:', codEditora);
     }
 
     return editora ? editora.nome : undefined;

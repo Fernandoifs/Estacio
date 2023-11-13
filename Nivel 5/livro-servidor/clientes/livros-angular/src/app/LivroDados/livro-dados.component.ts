@@ -20,7 +20,7 @@ export class LivroDadosComponent implements OnInit {
     private servLivros: ControleLivrosService,
     private router: Router
   ) {
-    this.livro = new Livro(0, this.editoras[1]?.codEditora);
+    this.livro = new Livro('', this.editoras[1]?.codEditora);
    }
 
   ngOnInit(): void {
@@ -32,7 +32,12 @@ export class LivroDadosComponent implements OnInit {
 
   incluir = (): void => {
     this.livro.autores = this.autoresForm.split('\n');
-    this.servLivros.incluirLivro(this.livro);
-    this.router.navigateByUrl('/lista');
+    this.servLivros.incluirLivro(this.livro).then((sucesso) =>{
+      if (sucesso){
+        this.router.navigateByUrl('/lista');
+      } else {
+        console.log('Erro ao incluir o livro')
+      }
+    });
   };
 }

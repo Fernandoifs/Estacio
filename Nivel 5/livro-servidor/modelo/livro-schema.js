@@ -8,6 +8,6 @@ const LivroSchema = new banco.Schema({
   autores: [String],
 });
 
-const Livro = banco.model("Livro", LivroSchema, "livros");
+const Livro = banco.model("Livro", LivroSchema);
 
-module.exports = { Livro };
+module.exports =  Livro;

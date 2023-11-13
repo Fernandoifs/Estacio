@@ -1,58 +1,82 @@
 import { Injectable } from '@angular/core';
 import { Livro } from './Livro';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
+
+const baseURL = 'http://localhost:3030/livros';
+
+interface LivroMongo {
+  _id: string | null;
+  codEditora: number;
+  titulo: string;
+  resumo: string;
+  autores: string[];
+}
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ControleLivrosService {
-  livros: Livro[] = [
-  {
-    codEditora: 1,
-    codigo: 1,
-    titulo: "O Senhor dos Anéis",
-    resumo: "Uma grande aventura na Terra Média",
-    autores: ["J.R.R. Tolkien"],
-  },
-  {
-    codEditora: 2,
-    codigo: 2,
-    titulo: "Dom Quixote",
-    resumo: "As aventuras do Cavaleiro da Triste Figura",
-    autores: ["Miguel de Cervantes"],
-  },
-  {
-    codEditora: 3,
-    codigo: 3,
-    titulo: "Harry Potter e a Pedra Filosofal",
-    resumo: "A história do jovem bruxo Harry Potter",
-    autores: ["J.K. Rowling"],
-  },
-  ]
-  constructor() { }
+  constructor() {}
 
-  obterLivros(): Observable<Livro[]> {
-    return of(this.livros);
+  obterLivros(): Promise<Livro[]> {
+    return new Promise((resolve, reject) => {
+      fetch(baseURL)
+        .then((response) => response.json())
+        .then((data: LivroMongo[]) => {
+          const livros = data.map((livroMongo) =>
+            this.converterParaLivro(livroMongo)
+          );
+          resolve(livros);
+        })
+        .catch((error) => reject(error));
+    });
   }
 
-  incluirLivro(livro: Livro): Observable<Livro> {
-    const proxCodigo = Math.max(
-      ...this.livros.map((livro) => livro.codigo),
-      0
-    );
-    livro.codigo = proxCodigo + 1;
-    this.livros.push(livro);
-    return of(livro);
-    
+  incluirLivro(livro: Livro): Promise<boolean> {
+    const livroMongo: LivroMongo = this.converterParaLivroMongo(livro);
+
+    return new Promise((observer) => {
+      fetch(baseURL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(livroMongo),
+      })
+        .then((response) => response.ok)
+        .catch((error) => error);
+    });
   }
 
-  excluirLivro(codigo: number): Observable<void> {
-    const index = this.livros.findIndex(
-      (livro) => livro.codigo === codigo
-    );
-    if (index !== -1) {
-      this.livros.splice(index, 1);
-    } 
-    return of(undefined);
+  excluirLivro(codigo: string): Promise<boolean> {
+    const url = `${baseURL}/${codigo}`;
+
+    return new Promise((observer) => {
+      fetch(url, {
+        method: 'DELETE',
+      })
+        .then((response) => response.ok)
+        .catch((error) => error);
+    });
+  }
+
+  private converterParaLivro(livroMongo: LivroMongo): Livro {
+    return {
+      codEditora: livroMongo.codEditora,
+      codigo: livroMongo._id || '',
+      titulo: livroMongo.titulo,
+      resumo: livroMongo.resumo,
+      autores: livroMongo.autores,
+    };
+  }
+
+  private converterParaLivroMongo(livro: Livro): LivroMongo {
+    return {
+      _id: livro.codigo,
+      codEditora: livro.codEditora,
+      titulo: livro.titulo,
+      resumo: livro.resumo,
+      autores: livro.autores,
+    };
   }
 }
