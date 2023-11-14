@@ -1,4 +1,4 @@
-const { obterLivros, incluir, excluir } = require('../modelo/livro-dao');
+const { obterLivros, incluir, excluir } = require('../model/livro-dao');
 const express = require('express');
 const router = express.Router();
 
