@@ -1,4 +1,4 @@
-const { banco } = require("./conexao");
+const  banco  = require("./conexao");
 
 const LivroSchema = new banco.Schema({
   _id: banco.Schema.Types.ObjectId,
@@ -11,3 +11,4 @@ const LivroSchema = new banco.Schema({
 const Livro = banco.model("Livro", LivroSchema);
 
 module.exports =  Livro;
+

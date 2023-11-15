@@ -11,6 +11,10 @@ interface LivroMongo {
 }
 
 class ControleLivro {
+  public livrosCarregados: Livro[];
+  constructor(livros: Livro[]) {
+    this.livrosCarregados = livros;
+  }
   async obterLivros(): Promise<Livro[]> {
     try {
       const resposta = await fetch(baseURL);
@@ -51,7 +55,7 @@ class ControleLivro {
       if (resposta.ok) {
         const livrosMongo: LivroMongo[] = await resposta.json();
         const livroIncluido = this.converterLivro(livrosMongo[0]);
-        //this.livrosCarregados.push(livroIncluido); rever
+        this.livrosCarregados.push(livroIncluido);
   
         console.log('Livro incluído com sucesso!');
         return true; 
@@ -65,11 +69,10 @@ class ControleLivro {
     }
   }
   
-
   private converterLivro(livroMongo: LivroMongo): Livro {
     return {
+      codigo: livroMongo._id,
       codEditora: livroMongo.codEditora,
-      codigo: livroMongo._id || "",
       titulo: livroMongo.titulo,
       resumo: livroMongo.resumo,
       autores: livroMongo.autores,
@@ -85,7 +88,6 @@ class ControleLivro {
       autores: livro.autores,
     };
   }
-  
 }
 
 export default ControleLivro;

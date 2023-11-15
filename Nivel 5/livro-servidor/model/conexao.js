@@ -12,3 +12,4 @@ banco.connect(url, { useNewUrlParser: true, useUnifiedTopology: true })
   });
 
 module.exports = { banco, url };
+

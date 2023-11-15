@@ -13,7 +13,7 @@ function LivroDados() {
   const [resumo, setResumo] = useState("");
   const [autores, setAutores] = useState("");
   const [codEditora, setCodEditora] = useState(
-    opcoes.length > 0 ? opcoes[0].value : null
+    opcoes.length > 0 ? opcoes[0].value : 1 
   );
 
   const navigate = useNavigate();
@@ -37,7 +37,7 @@ function LivroDados() {
 
     // Construtor do livro
     const novoLivro = {
-      codigo: "",
+      codigo: null,
       titulo: titulo,
       resumo: resumo,
       codEditora: codEditora,
