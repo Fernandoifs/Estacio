@@ -2,27 +2,13 @@ import React, { useState, useEffect, useMemo } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import ControleLivro from "../controle/ControleLivros";
 import ControleEditora from "../controle/ControleEditora";
-import { arrayLivros } from "../controle/ControleLivros";
 import { useNavigate } from "react-router-dom";
 
 function LivroDados() {
-  const controleLivro = useMemo(() => {
-    return new ControleLivro(arrayLivros);
-  }, []);
+  const controleLivro = useMemo(() => new ControleLivro(), []);
+  const controleEditora = useMemo(() => new ControleEditora(), []);
 
   const [opcoes, setOpcoes] = useState([]);
-
-  useEffect(() => {
-    const controleEditora = new ControleEditora();
-    const editoras = controleEditora.getEditoras();
-    const opcoes = editoras.map((editora) => ({
-      value: editora.codEditora,
-      text: editora.nome,
-    }));
-    setOpcoes(opcoes);
-  }, []);
-
-  const navigate = useNavigate();
   const [titulo, setTitulo] = useState("");
   const [resumo, setResumo] = useState("");
   const [autores, setAutores] = useState("");
@@ -30,25 +16,42 @@ function LivroDados() {
     opcoes.length > 0 ? opcoes[0].value : null
   );
 
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const editoras = controleEditora.getEditoras();
+    const opcoes = editoras.map((editora) => ({
+      value: editora.codEditora,
+      text: editora.nome,
+    }));
+    setOpcoes(opcoes);
+  }, [controleEditora]);
+
   function tratarCombo(event) {
     const valorSelecionado = Number(event.target.value);
     setCodEditora(valorSelecionado);
   }
 
-  function incluir(event) {
+  async function incluir(event) {
     event.preventDefault();
 
+    // Construtor do livro
     const novoLivro = {
-      codigo: 0,
+      codigo: "",
       titulo: titulo,
       resumo: resumo,
       codEditora: codEditora,
       autores: autores.split("\n"),
     };
 
-    controleLivro.incluirLivro(novoLivro);
-    navigate("/");
+    try {
+      await controleLivro.incluirLivro(novoLivro);
+      navigate("/");
+    } catch (error) {
+      console.error("Erro ao incluir livro:", error);
+    }
   }
+
 
   return (
     <main className="d-flex flex-column h-100 w-100 px-5">

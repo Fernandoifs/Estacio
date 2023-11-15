@@ -3,8 +3,6 @@ import Table from "react-bootstrap/Table";
 import ControleLivro from "../controle/ControleLivros";
 import ControleEditora from "../controle/ControleEditora";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { arrayLivros } from "../controle/ControleLivros";
-
 
 function LinhaLivro({ livro, excluir }) {
   const handleDelete = () => {
@@ -25,7 +23,7 @@ function LinhaLivro({ livro, excluir }) {
       <td>
         <ul>
           {livro.autores.map((autor, index) => (
-            <li key={index}>{autor}</li>
+            <li key={`${livro.codigo}-${index}`}>{autor}</li>
           ))}
         </ul>
       </td>
@@ -37,30 +35,27 @@ export default function LivroLista() {
   const [livros, setLivros] = useState([]);
   const [carregado, setCarregado] = useState(false);
 
-  const controleLivro = useMemo(() => { return new ControleLivro(arrayLivros); }, []);
-  const controleEditora = useMemo(() => { return new ControleEditora(); }, []);
+  const controleLivro = useMemo(() => new ControleLivro(), []);
+  const controleEditora = useMemo(() => new ControleEditora(), []);
 
   useEffect(() => {
     if (!carregado) {
-      const dadosLivros = controleLivro.obterLivros();
-      const livrosComNomeEditora = dadosLivros.map((livro) => {
-        const nomeEditora = controleEditora.getNomeEditora(livro.codEditora);
-        return { ...livro, nomeEditora };
-      });
+      controleLivro.obterLivros().then((dadosLivros) => {
+        const livrosComNomeEditora = dadosLivros.map((livro) => {
+          const nomeEditora = controleEditora.getNomeEditora(livro.codEditora);
+          return { ...livro, nomeEditora };
+        });
 
-      setLivros(livrosComNomeEditora);
-      setCarregado(true);
+        setLivros(livrosComNomeEditora);
+        setCarregado(true);
+      });
     }
   }, [carregado, controleLivro, controleEditora]);
 
   const excluir = (codigo) => {
-    controleLivro.excluirLivro(codigo);
-    const dadosLivros = controleLivro.obterLivros();
-    const livrosComNomeEditora = dadosLivros.map((livro) => {
-      const nomeEditora = controleEditora.getNomeEditora(livro.codEditora);
-      return { ...livro, nomeEditora };
+    controleLivro.excluirLivro(codigo).then(() => {
+      setCarregado(false);
     });
-    setLivros(livrosComNomeEditora);
   };
 
   return (
@@ -77,8 +72,8 @@ export default function LivroLista() {
             </tr>
           </thead>
           <tbody>
-            {livros.map((livro) => (
-              <LinhaLivro key={livro.codigo} livro={livro} excluir={excluir} />
+            {livros.map((livro, index) => (
+              <LinhaLivro key={`${livro.codigo}-${index}`} livro={livro} excluir={excluir} />
             ))}
           </tbody>
         </Table>
