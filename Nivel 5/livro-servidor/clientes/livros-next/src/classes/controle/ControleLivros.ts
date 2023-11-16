@@ -1,68 +1,93 @@
-import { Livro } from "@/classes/modelo/Livro";
+import { Livro } from "../modelo/Livro";
 
-const livros = [
-  {
-    codEditora: 1,
-    codigo: 1,
-    titulo: "O Senhor dos Anéis",
-    resumo: "Uma grande aventura na Terra Média",
-    autores: ["J.R.R. Tolkien"],
-  },
-  {
-    codEditora: 2,
-    codigo: 2,
-    titulo: "Dom Quixote",
-    resumo: "As aventuras do Cavaleiro da Triste Figura",
-    autores: ["Miguel de Cervantes"],
-  },
-  {
-    codEditora: 3,
-    codigo: 3,
-    titulo: "Harry Potter e a Pedra Filosofal",
-    resumo: "A história do jovem bruxo Harry Potter",
-    autores: ["J.K. Rowling"],
-  },
-];
+const baseURL = "http://localhost:3030/livros";
+
+interface LivroMongo {
+  _id: string | null;
+  codEditora: number;
+  titulo: string;
+  resumo: string;
+  autores: string[];
+}
 
 class ControleLivro {
   public livrosCarregados: Livro[];
   constructor(livros: Livro[]) {
     this.livrosCarregados = livros;
   }
+  async obterLivros(): Promise<Livro[]> {
+    try {
+      const resposta = await fetch(baseURL);
+      const livrosMongo: LivroMongo[] = await resposta.json();
 
-  obterLivros(): Livro[] {
-    return this.livrosCarregados;
-  }
-
-  incluirLivro(livro: Livro) {
-    const proxCodigo = Math.max(
-      ...this.livrosCarregados.map((livro) => livro.codigo),
-      0
-    );
-    livro.codigo = proxCodigo + 1;
-    this.livrosCarregados.push(livro);
-  }
-
-  excluirLivro(codigo: number) {
-    const index = this.livrosCarregados.findIndex(
-      (livro) => livro.codigo === codigo
-    );
-    if (index !== -1) {
-      this.livrosCarregados.splice(index, 1);
-    } else {
-      console.log("Livro não encontrado!");
+      return livrosMongo.map((livroMongo) => this.converterLivro(livroMongo));
+    } catch (error) {
+      console.error("Erro ao obter livros:", error);
+      throw error;
     }
+  }
+
+  async excluirLivro(codigo: string): Promise<boolean> {
+    try {
+      const resposta = await fetch(`${baseURL}/${codigo}`, {
+        method: "DELETE",
+      });
+
+      return resposta.ok;
+    } catch (error) {
+      console.error("Erro ao excluir o livro:", error);
+      return false;
+    }
+  }
+
+  async incluirLivro(livro: Livro): Promise<boolean> {
+    const livroMongo: LivroMongo = this.converterLivroMongo(livro);
+  
+    try {
+      const resposta = await fetch(baseURL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(livroMongo),
+      });
+  
+      if (resposta.ok) {
+        const livrosMongo: LivroMongo[] = await resposta.json();
+        const livroIncluido = this.converterLivro(livrosMongo[0]);
+        this.livrosCarregados.push(livroIncluido);
+  
+        console.log('Livro incluído com sucesso!');
+        return true; 
+      } else {
+        console.log('Falha ao incluir livro:', resposta.statusText);
+        return false;
+      }
+    } catch (error) {
+      console.error('Erro ao enviar requisição:', error);
+      return false; 
+    }
+  }
+  
+  private converterLivro(livroMongo: LivroMongo): Livro {
+    return {
+      codigo: livroMongo._id,
+      codEditora: livroMongo.codEditora,
+      titulo: livroMongo.titulo,
+      resumo: livroMongo.resumo,
+      autores: livroMongo.autores,
+    };
+  }
+
+  private converterLivroMongo(livro: Livro): LivroMongo {
+    return {
+      _id: livro.codigo,
+      codEditora: livro.codEditora,
+      titulo: livro.titulo,
+      resumo: livro.resumo,
+      autores: livro.autores,
+    };
   }
 }
 
-export const arrayLivros = livros.map(
-  (livro) =>
-    new Livro(
-      livro.codEditora,
-      livro.codigo,
-      livro.titulo,
-      livro.resumo,
-      livro.autores
-    )
-);
 export default ControleLivro;
