@@ -57,7 +57,7 @@ const LivroDados: NextPage = () => {
     event.preventDefault();
 
     const livro = new Livro(
-      0,
+      '',
       Number(codEditora),
       titulo,
       resumo,
