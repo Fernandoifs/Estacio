@@ -18,8 +18,8 @@
   },
   "devDependencies": {
     "@types/node": "^20",
-    "@types/react": "^18",
-    "@types/react-dom": "^18",
+    "@types/react": "^18.2.37",
+    "@types/react-dom": "^18.2.15",
     "@types/react-transition-group": "^4.4.8",
     "@types/warning": "^3.0.2",
     "eslint": "^8",

@@ -4,36 +4,18 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import styles from "@/styles/Home.module.css";
 import { Menu } from "@/classes/componentes/Menu";
-import ControleEditora, { arrayEditoras,} from "@/classes/controle/ControleEditora";
+import ControleEditora, { arrayEditoras } from "@/classes/controle/ControleEditora";
+import  ControleLivros  from "@/classes/controle/ControleLivros";
 import { Livro } from "@/classes/modelo/Livro";
-
-const baseURL = "http://localhost:3000/api/livros";
-
-const incluirLivro = async (livro: Livro) => {
-  try {
-    const resposta = await fetch(baseURL, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(livro),
-    });
-
-    return resposta.ok;
-  } catch (error) {
-    console.error("Erro ao incluir o livro:", error);
-    return false;
-  }
-};
 
 interface Opcao {
   value: number;
   text: string;
 }
-
 const LivroDados: NextPage = () => {
   const [opcoes, setOpcoes] = useState<Opcao[]>([]);
-  
+  const [controleLivros] = useState(new ControleLivros([]));
+
   useEffect(() => {
     const controleEditora = new ControleEditora(arrayEditoras);
     const editoras = controleEditora.getEditoras();
@@ -53,21 +35,25 @@ const LivroDados: NextPage = () => {
   const tratarCombo = (event: ChangeEvent<HTMLSelectElement>) => {
     setCodEditora(Number(event.target.value));
   };
-  const incluir = async (event: FormEvent<HTMLFormElement>) => {
+
+  const pushLivro =async (livro:Livro) => {
+    const sucesso = await controleLivros.incluirLivro(livro);   
+    if (sucesso) {
+      router.push("./LivroLista");
+    }
+  };
+  const incluir = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     const livro = new Livro(
-      '',
+      "", 
       Number(codEditora),
       titulo,
       resumo,
       autores.split("\n")
     );
-    const sucesso = await incluirLivro(livro);
-
-    if (sucesso) {
-      router.push("./LivroLista"); 
-    }
+    pushLivro(livro);
+   
   };
 
   return (

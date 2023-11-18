@@ -6,39 +6,36 @@ import Head from "next/head";
 import Table from "react-bootstrap/Table";
 import { Livro } from "@/classes/modelo/Livro";
 import { LinhaLivro } from "@/classes/componentes/LinhaLivro";
-
-
-const baseURL = "http://localhost:3000/api/livros";
-
-const obter = async () => {
-  const resposta = await fetch(baseURL);
-  const dados = await resposta.json();
-  return dados;
-};
-
-const excluirLivro = async (codigo: number) => {
-  const resposta = await fetch(`${baseURL}/${codigo}`, {
-    method: "DELETE",
-  });
-  return resposta.ok;
-};
+import ControleLivros from "@/classes/controle/ControleLivros";
 
 const LivroLista: NextPage = () => {
   const [livros, setLivros] = useState<Livro[]>([]);
   const [carregado, setCarregado] = useState<boolean>(false);
+  const controleLivros = new ControleLivros([]);
 
   useEffect(() => {
-    if (!carregado) {
-      obter().then((livros) => {
-        setLivros(livros);
+    const obterLivros = async () => {
+      try {
+        const livrosObtidos = await controleLivros.obterLivros();
+        setLivros(livrosObtidos);
         setCarregado(true);
-      });
-    }
-  }, [carregado]);
+      } catch (error) {
+        console.error("Erro ao obter livros:", error);
+      }
+    };
 
-  const excluir = async (codigo: number) => {
-    await excluirLivro(codigo);
-    setCarregado(false);
+    if (!carregado) {
+      obterLivros();
+    }
+  }, [carregado, controleLivros]);
+
+  const excluirLivro = async (codigo: number) => {
+    try {
+      await controleLivros.excluirLivro(codigo);
+      setCarregado(false);
+    } catch (error) {
+      console.error("Erro ao excluir livro:", error);
+    }
   };
 
   return (
@@ -52,19 +49,18 @@ const LivroLista: NextPage = () => {
         <Table striped bordered hover>
           <thead>
             <tr>
-              <th className="bg-dark text-white ">Título</th>
+              <th className="bg-dark text-white">Título</th>
               <th className="bg-dark text-white">Resumo</th>
               <th className="bg-dark text-white">Editora</th>
               <th className="bg-dark text-white">Autores</th>
             </tr>
           </thead>
           <tbody>
-            {livros.map((livro) => (
+            {livros.map((livro, index) => (
               <LinhaLivro
-                key={livro.codigo}
+                key={`${index}_${livro.codigo}`}
                 livro={livro}
-                //editora={editora}
-                excluir={excluir}
+                excluir={excluirLivro}
               />
             ))}
           </tbody>
@@ -73,4 +69,5 @@ const LivroLista: NextPage = () => {
     </div>
   );
 };
+
 export default LivroLista;
