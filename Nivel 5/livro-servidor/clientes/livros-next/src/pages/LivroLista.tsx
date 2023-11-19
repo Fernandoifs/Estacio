@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import type { NextPage } from "next";
 import styles from "@/styles/Home.module.css";
 import { Menu } from "@/classes/componentes/Menu";
@@ -11,7 +11,7 @@ import ControleLivros from "@/classes/controle/ControleLivros";
 const LivroLista: NextPage = () => {
   const [livros, setLivros] = useState<Livro[]>([]);
   const [carregado, setCarregado] = useState<boolean>(false);
-  const controleLivros = new ControleLivros([]);
+  const controleLivros = useMemo(() => new ControleLivros([]), []);
 
   useEffect(() => {
     const obterLivros = async () => {
@@ -29,7 +29,7 @@ const LivroLista: NextPage = () => {
     }
   }, [carregado, controleLivros]);
 
-  const excluirLivro = async (codigo: number) => {
+  const excluirLivro = async (codigo: string) => {
     try {
       await controleLivros.excluirLivro(codigo);
       setCarregado(false);

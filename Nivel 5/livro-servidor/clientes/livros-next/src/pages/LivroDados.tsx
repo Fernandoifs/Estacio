@@ -30,30 +30,30 @@ const LivroDados: NextPage = () => {
   const [titulo, setTitulo] = useState("");
   const [resumo, setResumo] = useState("");
   const [autores, setAutores] = useState("");
-  const [codEditora, setCodEditora] = useState(opcoes[0]?.value || 0);
+  const [codEditora, setCodEditora] = useState( //para trazer a editora correta value 1
+    opcoes.length > 0 ? opcoes[0].value : 1 
+  );
 
   const tratarCombo = (event: ChangeEvent<HTMLSelectElement>) => {
     setCodEditora(Number(event.target.value));
   };
 
-  const pushLivro =async (livro:Livro) => {
-    const sucesso = await controleLivros.incluirLivro(livro);   
-    if (sucesso) {
-      router.push("./LivroLista");
-    }
-  };
   const incluir = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    const livro = new Livro(
-      "", 
+    const novoLivro = new Livro(
+      null, 
       Number(codEditora),
       titulo,
       resumo,
       autores.split("\n")
     );
-    pushLivro(livro);
-   
+    try {
+      controleLivros.incluirLivro(novoLivro);
+      router.push("/LivroLista");
+    } catch (error) {
+      console.error("Erro ao incluir livro:", error);
+    }
   };
 
   return (

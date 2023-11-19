@@ -1,11 +1,10 @@
 import ControleLivro from "@/classes/controle/ControleLivros";
-import { arrayLivros } from "@/classes/controle/ControleLivros";
 import { NextApiRequest, NextApiResponse } from "next";
 
-export const controleLivro = new ControleLivro(arrayLivros);
+export const controleLivro = new ControleLivro([]);
 
 const metodo1 = async (req: NextApiRequest, res: NextApiResponse) => {
-  try {debugger
+  try {
     if (req.method === "GET") {
       const livros = controleLivro.obterLivros();
       res.status(200).json(livros);
