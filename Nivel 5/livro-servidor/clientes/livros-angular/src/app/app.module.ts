@@ -21,7 +21,7 @@ import { FormsModule } from '@angular/forms';
     AppRoutingModule,
     FormsModule
   ],
-  providers: [ControleEditoraService, ControleLivrosService ],
+  providers: [ControleEditoraService, ControleLivrosService,{ provide: 'livros', useValue: [] } ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

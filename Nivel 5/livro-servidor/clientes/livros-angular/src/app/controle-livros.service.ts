@@ -1,6 +1,5 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { Livro } from './Livro';
-import { Observable } from 'rxjs';
 
 const baseURL = 'http://localhost:3030/livros';
 
@@ -16,61 +15,81 @@ interface LivroMongo {
   providedIn: 'root',
 })
 export class ControleLivrosService {
-  constructor() {}
-
-  obterLivros(): Promise<Livro[]> {
-    return new Promise((resolve, reject) => {
-      fetch(baseURL)
-        .then((response) => response.json())
-        .then((data: LivroMongo[]) => {
-          const livros = data.map((livroMongo) =>
-            this.converterParaLivro(livroMongo)
-          );
-          resolve(livros);
-        })
-        .catch((error) => reject(error));
-    });
+  public livrosCarregados: Livro[];
+  constructor(@Inject('livros') livros: Livro[]) {
+    this.livrosCarregados = livros;
   }
 
-  incluirLivro(livro: Livro): Promise<boolean> {
-    const livroMongo: LivroMongo = this.converterParaLivroMongo(livro);
+  async obterLivros(): Promise<Livro[]> {
+    try {
+      const resposta = await fetch(baseURL);
+      if (!resposta.ok) {
+        throw new Error(`Erro ao obter livros`);
+      }
+      const data: LivroMongo[] = await resposta.json();
+      const livros: Livro[] = data.map((livroMongo) =>
+        this.converterLivro(livroMongo)
+      );
 
-    return new Promise((observer) => {
-      fetch(baseURL, {
+      return livros;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async excluirLivro(codigo: string | null): Promise<boolean> {
+    try {
+      const resposta = await fetch(`${baseURL}/${codigo}`, {
+        method: 'DELETE',
+      });
+
+      return resposta.ok;
+    } catch (error) {
+      console.error('Erro ao excluir o livro:', error);
+      return false;
+    }
+  }
+
+  async incluirLivro(livro: Livro): Promise<boolean> {
+    const livroMongo: LivroMongo = this.converterLivroMongo(livro);
+
+    try {
+      const resposta = await fetch(baseURL, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(livroMongo),
-      })
-        .then((response) => response.ok)
-        .catch((error) => error);
-    });
+      });
+
+      if (resposta.ok) {
+        const livrosMongo: LivroMongo[] = await resposta.json();
+        const livroIncluido = this.converterLivro(livrosMongo[0]);
+        this.livrosCarregados.push(livroIncluido);
+
+        console.log('Livro incluído com sucesso!');
+        return true;
+      } else {
+        console.log('Falha ao incluir livro:', resposta.statusText);
+        return false;
+      }
+    } catch (error) {
+      console.error('Erro ao enviar requisição:', error);
+      return false;
+    }
   }
 
-  excluirLivro(codigo: string): Promise<boolean> {
-    const url = `${baseURL}/${codigo}`;
-
-    return new Promise((observer) => {
-      fetch(url, {
-        method: 'DELETE',
-      })
-        .then((response) => response.ok)
-        .catch((error) => error);
-    });
-  }
-
-  private converterParaLivro(livroMongo: LivroMongo): Livro {
+  private converterLivro(livroMongo: LivroMongo): Livro {
     return {
+      codigo: livroMongo._id,
       codEditora: livroMongo.codEditora,
-      codigo: livroMongo._id || '',
       titulo: livroMongo.titulo,
       resumo: livroMongo.resumo,
       autores: livroMongo.autores,
     };
   }
 
-  private converterParaLivroMongo(livro: Livro): LivroMongo {
+  private converterLivroMongo(livro: Livro): LivroMongo {
     return {
       _id: livro.codigo,
       codEditora: livro.codEditora,

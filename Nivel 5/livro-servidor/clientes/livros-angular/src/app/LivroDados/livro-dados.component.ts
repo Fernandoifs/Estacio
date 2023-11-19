@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./livro-dados.component.css'],
 })
 export class LivroDadosComponent implements OnInit {
-  public livro: Livro
+  public livro: Livro;
   public autoresForm: string = '';
   public editoras: Editora[] = [];
 
@@ -20,23 +20,23 @@ export class LivroDadosComponent implements OnInit {
     private servLivros: ControleLivrosService,
     private router: Router
   ) {
-    this.livro = new Livro('', this.editoras[1]?.codEditora);
-   }
+    this.livro = new Livro(null,1,'','',[]);
+  }
 
   ngOnInit(): void {
-    this.servEditora.getEditoras().subscribe(editoras => {
+    this.servEditora.getEditoras().subscribe((editoras) => {
       this.editoras = editoras;
     });
-  
   }
 
   incluir = (): void => {
     this.livro.autores = this.autoresForm.split('\n');
-    this.servLivros.incluirLivro(this.livro).then((sucesso) =>{
-      if (sucesso){
+    this.servLivros.incluirLivro(this.livro).then((sucesso) => {
+      if (sucesso) {
+        console.log('Livro incluído com sucesso!');
         this.router.navigateByUrl('/lista');
       } else {
-        console.log('Erro ao incluir o livro')
+        console.log('Erro ao incluir o livro');
       }
     });
   };

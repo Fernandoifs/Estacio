@@ -3,7 +3,6 @@ import { Editora } from '../Editora';
 import { Livro } from '../Livro';
 import { ControleEditoraService } from '../controle-editora.service';
 import { ControleLivrosService } from '../controle-livros.service';
-import { Observable, of } from 'rxjs';
 
 @Component({
   selector: 'app-livro-lista',
@@ -34,7 +33,7 @@ export class LivroListaComponent implements OnInit {
     });
   }
 
-  excluir = async (codigo: string): Promise<void> => {
+  excluir = async (codigo:string | null): Promise<void> => {
     try {
       await this.servLivros.excluirLivro(codigo);
       this.livros = await this.servLivros.obterLivros();
