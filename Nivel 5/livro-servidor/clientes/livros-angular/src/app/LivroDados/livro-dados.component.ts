@@ -20,7 +20,8 @@ export class LivroDadosComponent implements OnInit {
     private servLivros: ControleLivrosService,
     private router: Router
   ) {
-    this.livro = new Livro(null,1,'','',[]);
+    //this.livro = new Livro(null,0,'','',[]);
+    this.livro = new Livro();
   }
 
   ngOnInit(): void {

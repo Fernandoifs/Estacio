@@ -52,7 +52,7 @@ export class ControleLivrosService {
 
   async incluirLivro(livro: Livro): Promise<boolean> {
     const livroMongo: LivroMongo = this.converterLivroMongo(livro);
-
+  
     try {
       const resposta = await fetch(baseURL, {
         method: 'POST',
@@ -61,24 +61,14 @@ export class ControleLivrosService {
         },
         body: JSON.stringify(livroMongo),
       });
-
-      if (resposta.ok) {
-        const livrosMongo: LivroMongo[] = await resposta.json();
-        const livroIncluido = this.converterLivro(livrosMongo[0]);
-        this.livrosCarregados.push(livroIncluido);
-
-        console.log('Livro incluído com sucesso!');
-        return true;
-      } else {
-        console.log('Falha ao incluir livro:', resposta.statusText);
-        return false;
-      }
+  
+      return resposta.ok;
     } catch (error) {
       console.error('Erro ao enviar requisição:', error);
       return false;
     }
   }
-
+  
   private converterLivro(livroMongo: LivroMongo): Livro {
     return {
       codigo: livroMongo._id,
